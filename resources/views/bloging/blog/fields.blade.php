@@ -18,7 +18,6 @@
             {{ Form::label('tag',__('Tag').':', ['class' => 'form-label mb-3']) }}
             {{ Form::select('tag_id[]', $tags, null, ['id'=>'tag_id','class' => 'form-select io-select2 ','placeholder' =>  __('tags'), 'data-control' => 'select2', 'multiple']) }}
 
-            <!-- {{ Form::select('tag_id[]', $tags, null, ['id'=>'tagId','class' => 'form-select io-select2 ','placeholder' =>  __('tags'), 'data-control' => 'select2', 'multiple']) }} -->
         </div>
     </div>
 
@@ -36,7 +35,6 @@
         <div class="mb-5">
             {{ Form::label('description', __('Description').':', ['class' => 'form-label mb-3']) }}
             {{ Form::textarea('description', null, ['id' => 'editor']) }}
-            <!-- {{ Form::textarea('description', null, ['class' => 'form-control', 'placeholder' => __('description'),'rows'=>'7']) }} -->
         </div>
     </div>
         <!-- image and gallery start-->
@@ -45,10 +43,7 @@
             <h5 class="mb-4">{{ 'Images' }}</h5>
 
                      
-            <!-- <div class="mb-4">                        
-                {{ Form::label('thumbnail',__('Thumbnail 600*400').':', ['class' => 'form-label required mb-3']) }}
-                {{ Form::file('thumbnail', ['id'=>'thumbnail','class' => 'form-control','required']) }}               
-            </div> -->
+           
 
             <div class="mb-4">
                            

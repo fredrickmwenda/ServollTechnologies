@@ -16,15 +16,20 @@
 <!-- ========================
        page title 
     =========================== -->
-<section class="page-title2  text-center bg-overlay">
-  <!-- <div class="container">
-    <div class="row align-items-center">
+<section class="page-title2 text-center bg-overlay" style="background-image: url('{{ asset('img/blog.jpg') }}'); background-size: cover; background-position: center;">
+  <div class="container">
+    <div class="row align-items-center justify-content-center">
       <div class="col-12">
-
+        <!-- Breadcrumbs -->
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-center">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Blog</li>
+          </ol>
+        </nav>
       </div>
     </div>
-  
-  </div> -->
+  </div>
 </section>
 
 <!-- ======================
@@ -65,18 +70,34 @@
               <span class="post__meta-date">{{ $blog->created_at->format('M d, Y') }}</span>
             </div><!-- /.blog-meta -->
             <h1 class="post__title">{{$blog->title}}</h1>
-            <div class="post__desc">{{$blog->description}}</div><!-- /.blog-desc -->
+            <div class="post__desc">{!!$blog->description!!}</div><!-- /.blog-desc -->
           </div>
         </div><!-- /.post-item -->
+        @php
+        $shareUrl = route('single_blog', $blog->id);
+        $shareText = $blog->title;
+        @endphp
         <div class="bordered-box mb-30">
           <div class="row row-no-gutter ">
             <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-center">
               <div class="blog-share d-flex flex-wrap">
                 <strong class="mr-20 color-heading">Share</strong>
                 <ul class="list-unstyled social-icons social-icons-primary d-flex mb-0">
-                  <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                  <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                  <li><a href="#"><i class="fab fa-google"></i></a></li>
+                  <li>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode($shareUrl) }}" target="_blank" rel="noopener noreferrer">
+                      <i class="fab fa-facebook-f"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://x.com/intent/tweet?url={{ urlencode($shareUrl) }}&text={{ urlencode($shareText) }}" target="_blank" rel="noopener noreferrer">
+                      <i class="fab fa-twitter"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://wa.me/?text={{ urlencode($shareText . ' ' . $shareUrl) }}" target="_blank" rel="noopener noreferrer">
+                      <i class="fab fa-whatsapp"></i>
+                    </a>
+                  </li>
                 </ul>
               </div><!-- /.blog-share -->
             </div>
@@ -173,66 +194,66 @@
 
 
 
-        <div class="col-sm-12 col-md-12 col-lg-4">
-          <aside class="sidebar">
-            <div class="widget widget-search">
-              <h5 class="widget__title">Search</h5>
-              <div class="widget__content">
-                <form class="widget__form-search">
-                  <input type="text" class="form-control" placeholder="Search...">
-                  <button class="btn" type="submit"><i class="icon-search"></i></button>
-                </form>
-              </div><!-- /.widget-content -->
-            </div><!-- /.widget-search -->
-            <div class="widget widget-posts">
-              <h5 class="widget__title">Recent Posts</h5>
-              <div class="widget__content">
-                <!-- post item #1 -->
-                @foreach($recentBlogs as $recentBlog)
-                <div class="widget-post-item d-flex align-items-center">
-                  <div class="widget-post__img">
-                    <a href="#"><img src="{{ asset($recentBlog->thumbnail_image)}}" alt="thumb"></a>
-                  </div><!-- /.widget-post-img -->
-                  <div class="widget-post__content">
-                    <h4 class="widget-post__title"><a href="{{ route('single_blog', $blog->id) }}">{{$recentBlog->title}}</a></h4>
-                    <span class="widget-post__date">{{ \Carbon\Carbon::parse($blog->created_at)->format('M d, Y') }}</span>
+      <div class="col-sm-12 col-md-12 col-lg-4">
+        <aside class="sidebar">
+          <div class="widget widget-search">
+            <h5 class="widget__title">Search</h5>
+            <div class="widget__content">
+              <form class="widget__form-search">
+                <input type="text" class="form-control" placeholder="Search...">
+                <button class="btn" type="submit"><i class="icon-search"></i></button>
+              </form>
+            </div><!-- /.widget-content -->
+          </div><!-- /.widget-search -->
+          <div class="widget widget-posts">
+            <h5 class="widget__title">Recent Posts</h5>
+            <div class="widget__content">
+              <!-- post item #1 -->
+              @foreach($recentBlogs as $recentBlog)
+              <div class="widget-post-item d-flex align-items-center">
+                <div class="widget-post__img">
+                  <a href="#"><img src="{{ asset($recentBlog->thumbnail_image)}}" alt="thumb"></a>
+                </div><!-- /.widget-post-img -->
+                <div class="widget-post__content">
+                  <h4 class="widget-post__title"><a href="{{ route('single_blog', $blog->id) }}">{{$recentBlog->title}}</a></h4>
+                  <span class="widget-post__date">{{ \Carbon\Carbon::parse($blog->created_at)->format('M d, Y') }}</span>
 
-                  </div><!-- /.widget-post-content -->
-                </div>
+                </div><!-- /.widget-post-content -->
+              </div>
+              @endforeach
+
+              <!-- /.widget-post-item -->
+              <!-- post item #2 -->
+
+            </div><!-- /.widget-content -->
+          </div><!-- /.widget-posts -->
+          <div class="widget widget-categories">
+            <h5 class="widget__title">Categories</h5>
+            <div class="widget-content">
+              <ul class="list-unstyled">
+                @foreach ($categoriesWithCount as $category)
+                <li><a href="#"><span>{{ $category->name }}</span><span class="cat-count">{{ $category->blogs_count }}</span></a></li>
+
                 @endforeach
 
-                <!-- /.widget-post-item -->
-                <!-- post item #2 -->
+              </ul>
+            </div><!-- /.widget-content -->
+          </div><!-- /.widget-categories -->
+          <div class="widget widget-tags">
+            <h5 class="widget__title">Tags</h5>
+            <div class="widget-content">
+              <ul class="list-unstyled d-flex flex-wrap">
+                @foreach($tags as $tag)
+                <li><a href="#">{{$tag->name}}</a></li>
+                @endforeach
 
-              </div><!-- /.widget-content -->
-            </div><!-- /.widget-posts -->
-            <div class="widget widget-categories">
-              <h5 class="widget__title">Categories</h5>
-              <div class="widget-content">
-                <ul class="list-unstyled">
-                  @foreach ($categoriesWithCount as $category)
-                  <li><a href="#"><span>{{ $category->name }}</span><span class="cat-count">{{ $category->blogs_count }}</span></a></li>
-
-                  @endforeach
-
-                </ul>
-              </div><!-- /.widget-content -->
-            </div><!-- /.widget-categories -->
-            <div class="widget widget-tags">
-              <h5 class="widget__title">Tags</h5>
-              <div class="widget-content">
-                <ul class="list-unstyled d-flex flex-wrap">
-                  @foreach($tags as $tag)
-                  <li><a href="#">{{$tag->name}}</a></li>
-                  @endforeach
-
-                </ul>
-              </div><!-- /.widget-content -->
-            </div><!-- /.widget-tags -->
-          </aside><!-- /.sidebar -->
-        </div><!-- /.col-lg-4 -->
-      </div><!-- /.row -->
-    </div><!-- /.container -->
+              </ul>
+            </div><!-- /.widget-content -->
+          </div><!-- /.widget-tags -->
+        </aside><!-- /.sidebar -->
+      </div><!-- /.col-lg-4 -->
+    </div><!-- /.row -->
+  </div><!-- /.container -->
 </section><!-- /.blog Single -->
 
 

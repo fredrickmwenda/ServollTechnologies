@@ -1,5 +1,5 @@
 /******/ (() => { // webpackBootstrap
-/******/ 	var __webpack_modules__ = ({
+/******/ 	var __webpack_modules__ = ({ 
 
 /***/ "./node_modules/@ckeditor/ckeditor5-build-inline/build/ckeditor.js":
 /*!*************************************************************************!*\

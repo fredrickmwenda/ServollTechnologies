@@ -29,6 +29,66 @@ if (! function_exists('getLogInUser')) {
     }
 }
 
+if (! function_exists('resizeImage')) {
+    /**
+     * @return Authenticatable|null
+     */
+
+     function resizeImage($sourcePath, $destinationPath, $newWidth, $newHeight) {
+        // Get image type
+        $imageInfo = getimagesize($sourcePath);
+        $imageType = $imageInfo[2];
+    
+        // Load the source image based on its type
+        switch ($imageType) {
+            case IMAGETYPE_JPEG:
+                $sourceImage = imagecreatefromjpeg($sourcePath);
+                break;
+            case IMAGETYPE_PNG:
+                $sourceImage = imagecreatefrompng($sourcePath);
+                break;
+            case IMAGETYPE_GIF:
+                $sourceImage = imagecreatefromgif($sourcePath);
+                break;
+            default:
+                throw new Exception("Unsupported image type.");
+        }
+    
+        // Get original dimensions
+        $originalWidth = imagesx($sourceImage);
+        $originalHeight = imagesy($sourceImage);
+    
+        // Create a new blank image with the specified dimensions
+        $resizedImage = imagecreatetruecolor($newWidth, $newHeight);
+    
+        // Enable transparency for PNG and GIF images
+        if ($imageType == IMAGETYPE_PNG || $imageType == IMAGETYPE_GIF) {
+            imagecolortransparent($resizedImage, imagecolorallocatealpha($resizedImage, 0, 0, 0, 127));
+            imagealphablending($resizedImage, false);
+            imagesavealpha($resizedImage, true);
+        }
+    
+        // Resize the original image into the new image
+        imagecopyresampled($resizedImage, $sourceImage, 0, 0, 0, 0, $newWidth, $newHeight, $originalWidth, $originalHeight);
+    
+        // Save the resized image based on its type
+        switch ($imageType) {
+            case IMAGETYPE_JPEG:
+                imagejpeg($resizedImage, $destinationPath, 100); // Quality: 100%
+                break;
+            case IMAGETYPE_PNG:
+                imagepng($resizedImage, $destinationPath, 0); // Compression level: 0 (no compression)
+                break;
+            case IMAGETYPE_GIF:
+                imagegif($resizedImage, $destinationPath);
+                break;
+        }
+    
+        // Free up memory
+        imagedestroy($sourceImage);
+        imagedestroy($resizedImage);
+    }
+}
 if (! function_exists('getAppName')) {
     /**
      * @return mixed

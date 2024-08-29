@@ -17,17 +17,18 @@
   @livewireStyles()
   @stack('css')
   <style>
-.comments-list .nested__comment {
-    padding-left: 20px; /* Adjust this value as needed */
-}
+    .comments-list .nested__comment {
+      padding-left: 20px;
+      /* Adjust this value as needed */
+    }
 
-/* Remove list-style for nested comments */
-.comments-list .nested__comment {
-    list-style: none;
-}
+    /* Remove list-style for nested comments */
+    .comments-list .nested__comment {
+      list-style: none;
+    }
   </style>@push('css')
 
-@endpush
+  @endpush
 
 </head>
 
@@ -50,7 +51,7 @@
     @include('layouts.navbar')
     @yield('content')
     @include('layouts.front-footer')
-    
+
     <div class="login-popup" id="login-popup">
       <div class="login-popup-wrapper">
         <form class="login-popup__form" action="{{route('login')}}" method="post">
@@ -82,7 +83,7 @@
         </div> -->
       </div>
     </div>
-    
+
 
 
     <div class="login-popup" id="register-popup">
@@ -124,10 +125,10 @@
     <script src="{{ asset('assets/smart/js/toastr.min.js') }}"></script>
     <script src="{{ mix('assets/js/auth/auth.js') }}"></script>
 
-    <!-- <script src="{{ mix('assets/js/auth-third-party.js') }}"></script> -->
     @stack('js')
     @livewireScripts()
-    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+
+
     <script>
       $(document).ready(function() {
         $('#subscription-form').submit(function(e) {
@@ -150,10 +151,11 @@
           });
         });
 
-        $('#contactForm').submit(function(e) {
+        $('#inquiryForm').submit(function(e) {
           e.preventDefault(); // Prevent the form from submitting traditionally
 
           var formData = $(this).serialize();
+          console.log(formData);
 
           // Assuming your Laravel route is named 'enquire'
           var url = "{{ route('enquire') }}";
@@ -165,24 +167,28 @@
             data: formData,
 
             success: function(response) {
-              // Handle the success response, e.g., display a success message
-              alert('Enquiry successful');
+              if (typeof Toast !== 'undefined') {
+                Toast.success('We received your request, will get back to you with a suitable quotation');
+              } else {
+                alert('We received your request, will get back to you with a suitable quotation');
+              }
             },
             error: function(response) {
               console.log(response);
-              // Handle errors, e.g., display validation errors
-              alert('Enquiry failed');
+              if (typeof Toast !== 'undefined') {
+                Toast.error('Enquiry Failed');
+              } else {
+                alert('Enquiry Failed');
+              }
             }
           });
         });
-
-
       });
-
+    </script>
+    <script>
       $(document).ready(function() {
         // Get the current path
         var currentPage = window.location.pathname;
-        console.log('Current Page:', currentPage);
 
         // Find the corresponding navigation item and add the 'active' class to both the <li> and <a> elements
         $('.navbar-nav li').each(function() {
@@ -274,12 +280,22 @@
               //   hideMethod: "fadeOut",
               // };
               // toastr.success('Form submitted successfully!');
-              Toast.success('We received your request, will get back to you with a suitable quotation');
+                            if (typeof Toast !== 'undefined') {
+                Toast.success('We received your request, will get back to you');
+              } else {
+                alert('We received your request, will get back to you');
+              }
+              
             },
             error: function(jqXHR, textStatus, errorThrown) {
               // handle error here
               var errorMessage = jqXHR.responseJSON.message; // get the error message from the server
-              Toast.error('An error occurred: ' + errorMessage); // Display error message
+                  if (typeof Toast !== 'undefined') {
+                Toast.error('An error occurred: ' + errorMessage);
+              } else {
+                alert('An error occurred: ' + errorMessage);
+              }
+               // Display error message
               //toastr.error('An error occurred while submitting the form.'); 
               // 
             }

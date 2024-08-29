@@ -8,10 +8,13 @@
 
     {{-- Body --}}
     <div>
-        <h2>Dear {{ $data['name'] }},</h2>
-        <p>Thank you for your message. We have received your quotation inquiry and will get back to you shortly.</p>
-        <p>Here is a copy of your message:</p>
-        <p>{{ $data['message'] }}</p>
+        <p>New inquiry from {{ $data['first_name'] }} {{ $data['last_name'] }}:</p>
+        <p>Details:</p>
+        <ul>
+            <li>Email: {{ $data['email'] }}</li>
+            <li>Phone: {{ $data['phone'] }}</li>
+            <li>Message: {{ $data['message'] }}</li>
+        </ul>
         
         
     </div>

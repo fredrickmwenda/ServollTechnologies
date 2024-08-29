@@ -32,11 +32,12 @@ class ClientContactController extends Controller
      */
     public function store(Request $request)
     {
+        // info($request->all());
 
         try{
             // Validate request data
             $validatedData = $request->validate([
-                'service_id' => 'nullable|integer',
+                'service_id' => 'nullable|string',
                 'name' => 'required|string',
                 'phone' => 'required|string',
                 'email' => 'required|email',
@@ -44,7 +45,9 @@ class ClientContactController extends Controller
             ]);
     
             // Save data to the database
+            info($validatedData);
             $contact = new ClientContact($validatedData);
+            $contact->type = 'inquiry';
             $contact->save();
             
             //dispatch job to send the mail
@@ -54,8 +57,8 @@ class ClientContactController extends Controller
            // Mail::to($request->email)->send(new ContactFormMail($validatedData));
     
             // Send notification to admin
-            $admin = User::where('role', 'admin')->first(); // replace with your admin retrieval logic
-            Notification::send($admin, new  ClientContactNotification($validatedData));
+            // $admin = User::where('role', 'admin')->first(); // replace with your admin retrieval logic
+            // Notification::send($admin, new  ClientContactNotification($validatedData));
     
             return response()->json([
                 'success' => true,
@@ -63,6 +66,7 @@ class ClientContactController extends Controller
             ]);
     
         }catch (\Exception $e) {
+            info('Failed');
             // Handle exceptions here 
             return response()->json([
                 'success' => false,

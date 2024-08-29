@@ -6,6 +6,8 @@ use App\Models\Blog;
 use App\Models\BlogCategory;
 use App\Models\BlogTag;
 use App\Models\Tag;
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image as Image;
@@ -61,7 +63,7 @@ class BlogController extends Controller
     # blog store
     public function store(Request $request)
     {
-        info($request->all());
+        // dd($request->all());
         $blog = new Blog;
 
         if($request->hasFile('image')) {
@@ -98,7 +100,11 @@ class BlogController extends Controller
         $blog->short_description = $request->short_description;
 
         $blog->video_link = $request->video_link;
-        $blog->description = $request->editor;
+        $config = HTMLPurifier_Config::createDefault();
+        $purifier = new HTMLPurifier($config);
+        $safe_description = $purifier->purify($request->input('description'));
+        $blog->description = $safe_description;
+        dd($blog->description);
 
         $blog->meta_title = $request->meta_title;
         $blog->meta_description = $request->meta_description;

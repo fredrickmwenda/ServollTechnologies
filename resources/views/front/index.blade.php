@@ -461,7 +461,7 @@
       </div><!-- /.col-lg-6 -->
     </div><!-- /.row -->
     <div>
-    {!! Adsense::show('responsive') !!}
+  
     </div>
     <div class="row">
       <div class="col-12">
@@ -510,7 +510,7 @@
       <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <div class="contact-panel">
           <!-- action="{{ asset('assets/smart/php/contact.php')}}" -->
-          <form class="contact-panel__form" method="post" id="contactForm">
+          <form class="contact-panel__form" method="post" id="inquiryForm">
             @csrf
             <div class="row">
               <div class="col-12">

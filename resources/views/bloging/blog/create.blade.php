@@ -1,83 +1,85 @@
 @extends('layouts.app')
 @section('title')
-    {{__('messages.client.add_client')}}
+{{__('messages.client.add_client')}}
 @endsection
 @push('css')
+<!-- <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.0.0/ckeditor5.css"> -->
 <style>
+   
 
-            .ck-editor__editable[role="textbox"] {
-                /* Editing area */
-                min-height: 400px;
-            }
-            .ck-content .image {
-                /* Block images */
-                max-width: 80%;
-                margin: 20px auto;
-            }
-        </style>
+    .ck-editor__editable[role="textbox"] {
+        /* Editing area */
+        min-height: 400px;
+    }
+
+    .ck-content .image {
+        /* Block images */
+        max-width: 80%;
+        margin: 20px auto;
+    }
+</style>
 @endpush
 @section('content')
-    @php $styleCss = 'style'; @endphp
-    <div class="container-fluid">
-        @include('flash::message')
-        <div class="d-flex flex-column">
+@php $styleCss = 'style'; @endphp
+<div class="container-fluid">
+    @include('flash::message')
+    <div class="d-flex flex-column">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-end mb-5">
+                <h1>Add Blog</h1>
+                <a class="btn btn-outline-primary float-end"
+                    href="{{ route('blogs.index') }}">{{ __('messages.common.back') }}</a>
+            </div>
             <div class="col-12">
-                <div class="d-flex justify-content-between align-items-end mb-5">
-                    <h1>Add Blog</h1>
-                    <a class="btn btn-outline-primary float-end"
-                       href="{{ route('blogs.index') }}">{{ __('messages.common.back') }}</a>
-                </div>
-                <div class="col-12">
-                    @include('layouts.errors')
-                </div>
-                <div class="card">
-                    <div class="card-body"> 
-                        {{ Form::open(['route' => 'blogs.store','files' => 'true','id'=>'blogForm']) }}
-                        @include('bloging.blog.fields')
-                        {{ Form::close() }}
-                    </div>
+                @include('layouts.errors')
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    {{ Form::open(['route' => 'blogs.store','files' => 'true','id'=>'blogForm']) }}
+                    @include('bloging.blog.fields')
+                    {{ Form::close() }}
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 @endsection
 @push('js')
 <script>
-$(document).ready(function() {
-    $('#tag_id').select2();
-});
+    $(document).ready(function() {
+        $('#tag_id').select2();
+    });
 </script>
-<script src="https://cdn.ckeditor.com/ckeditor5/41.3.0/classic/ckeditor.js"></script>
-
+<script src="https://cdn.ckeditor.com/4.20.0/standard/ckeditor.js"></script> 
+ <script>
+    CKEDITOR.replace('editor');
+</script>
 <!-- Your script for initializing CKEditor -->
-<script>
+<!-- <script src="https://cdn.ckeditor.com/ckeditor5/43.0.0/ckeditor5.js"></script>  -->
+<!-- <script>
+    ClassicEditor.replace('editor');
+</script> -->
+<!-- <script>
     // Wait for the DOM to be fully loaded
     document.addEventListener('DOMContentLoaded', (event) => {
-        // Initialize CKEditor when the DOM is ready
         ClassicEditor
-            .create( document.querySelector( '#editor' ),{
+            .create(document.querySelector('#editor'), {
                 toolbar: {
                     items: [
-                        'exportPDF','exportWord', '|',
-                        'findAndReplace', 'selectAll', '|',
                         'heading', '|',
-                        'bold', 'italic', 'strikethrough', 'underline', 'code', 'subscript', 'superscript', 'removeFormat', '|',
+                        'bold', 'italic', 'strikethrough', 'underline', 'superscript', 'subscript', 'removeFormat', '|',
                         'bulletedList', 'numberedList', 'todoList', '|',
                         'outdent', 'indent', '|',
-                        'undo', 'redo',
-                        '-',
-                        'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'highlight', '|',
                         'alignment', '|',
-                        'link', 'uploadImage', 'blockQuote', 'insertTable', 'mediaEmbed', 'codeBlock', 'htmlEmbed', '|',
+                        'link', 'linkImage', 'uploadImage', 'blockQuote', 'insertTable', 'mediaEmbed', 'code', 'codeBlock', '|',
                         'specialCharacters', 'horizontalLine', 'pageBreak', '|',
-                        'textPartLanguage', '|',
-                        'sourceEditing'
+                        'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'highlight', '|',
+                        'textPartLanguage', 'sourceEditing', '|',
+                        'undo', 'redo'
                     ],
                     shouldNotGroupWhenFull: true
                 },
-                // Changing the language of the interface requires loading the language file using the <script> tag.
-                // language: 'es',
                 list: {
                     properties: {
                         styles: true,
@@ -85,21 +87,50 @@ $(document).ready(function() {
                         reversed: true
                     }
                 },
-                // https://ckeditor.com/docs/ckeditor5/latest/features/headings.html#configuration
                 heading: {
-                    options: [
-                        { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-                        { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
-                        { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
-                        { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
-                        { model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4' },
-                        { model: 'heading5', view: 'h5', title: 'Heading 5', class: 'ck-heading_heading5' },
-                        { model: 'heading6', view: 'h6', title: 'Heading 6', class: 'ck-heading_heading6' }
+                    options: [{
+                            model: 'paragraph',
+                            title: 'Paragraph',
+                            class: 'ck-heading_paragraph'
+                        },
+                        {
+                            model: 'heading1',
+                            view: 'h1',
+                            title: 'Heading 1',
+                            class: 'ck-heading_heading1'
+                        },
+                        {
+                            model: 'heading2',
+                            view: 'h2',
+                            title: 'Heading 2',
+                            class: 'ck-heading_heading2'
+                        },
+                        {
+                            model: 'heading3',
+                            view: 'h3',
+                            title: 'Heading 3',
+                            class: 'ck-heading_heading3'
+                        },
+                        {
+                            model: 'heading4',
+                            view: 'h4',
+                            title: 'Heading 4',
+                            class: 'ck-heading_heading4'
+                        },
+                        {
+                            model: 'heading5',
+                            view: 'h5',
+                            title: 'Heading 5',
+                            class: 'ck-heading_heading5'
+                        },
+                        {
+                            model: 'heading6',
+                            view: 'h6',
+                            title: 'Heading 6',
+                            class: 'ck-heading_heading6'
+                        }
                     ]
                 },
-                // https://ckeditor.com/docs/ckeditor5/latest/features/editor-placeholder.html#using-the-editor-configuration
-                placeholder: 'Welcome to CKEditor 5!',
-                // https://ckeditor.com/docs/ckeditor5/latest/features/font.html#configuring-the-font-family-feature
                 fontFamily: {
                     options: [
                         'default',
@@ -114,29 +145,21 @@ $(document).ready(function() {
                     ],
                     supportAllValues: true
                 },
-                // https://ckeditor.com/docs/ckeditor5/latest/features/font.html#configuring-the-font-size-feature
                 fontSize: {
-                    options: [ 10, 12, 14, 'default', 18, 20, 22 ],
+                    options: [10, 12, 14, 'default', 18, 20, 22],
                     supportAllValues: true
                 },
-                // Be careful with the setting below. It instructs CKEditor to accept ALL HTML markup.
-                // https://ckeditor.com/docs/ckeditor5/latest/features/general-html-support.html#enabling-all-html-features
                 htmlSupport: {
-                    allow: [
-                        {
-                            name: /.*/,
-                            attributes: true,
-                            classes: true,
-                            styles: true
-                        }
-                    ]
+                    allow: [{
+                        name: /.*/,
+                        attributes: true,
+                        classes: true,
+                        styles: true
+                    }]
                 },
-                // Be careful with enabling previews
-                // https://ckeditor.com/docs/ckeditor5/latest/features/html-embed.html#content-previews
                 htmlEmbed: {
                     showPreviews: true
                 },
-                // https://ckeditor.com/docs/ckeditor5/latest/features/link.html#custom-link-attributes-decorators
                 link: {
                     decorators: {
                         addTargetToExternalLinks: true,
@@ -150,37 +173,23 @@ $(document).ready(function() {
                         }
                     }
                 },
-                // https://ckeditor.com/docs/ckeditor5/latest/features/mentions.html#configuration
                 mention: {
-                    feeds: [
-                        {
-                            marker: '@',
-                            feed: [
-                                '@apple', '@bears', '@brownie', '@cake', '@cake', '@candy', '@canes', '@chocolate', '@cookie', '@cotton', '@cream',
-                                '@cupcake', '@danish', '@donut', '@dragée', '@fruitcake', '@gingerbread', '@gummi', '@ice', '@jelly-o',
-                                '@liquorice', '@macaroon', '@marzipan', '@oat', '@pie', '@plum', '@pudding', '@sesame', '@snaps', '@soufflé',
-                                '@sugar', '@sweet', '@topping', '@wafer'
-                            ],
-                            minimumCharacters: 1
-                        }
-                    ]
+                    feeds: [{
+                        marker: '@',
+                        feed: [
+                            '@apple', '@bears', '@brownie', '@cake', '@candy', '@canes', '@chocolate', '@cookie', '@cotton', '@cream',
+                            '@cupcake', '@danish', '@donut', '@dragée', '@fruitcake', '@gingerbread', '@gummi', '@ice', '@jelly-o',
+                            '@liquorice', '@macaroon', '@marzipan', '@oat', '@pie', '@plum', '@pudding', '@sesame', '@snaps', '@soufflé',
+                            '@sugar', '@sweet', '@topping', '@wafer'
+                        ],
+                        minimumCharacters: 1
+                    }]
                 },
-                // The "superbuild" contains more premium features that require additional configuration, disable them below.
-                // Do not turn them on unless you read the documentation and know how to configure them and setup the editor.
                 removePlugins: [
-                    // These two are commercial, but you can try them out without registering to a trial.
-                    // 'ExportPdf',
-                    // 'ExportWord',
                     'AIAssistant',
                     'CKBox',
                     'CKFinder',
                     'EasyImage',
-                    // This sample uses the Base64UploadAdapter to handle image uploads as it requires no configuration.
-                    // https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/base64-upload-adapter.html
-                    // Storing images as Base64 is usually a very bad idea.
-                    // Replace it on production website with other solutions:
-                    // https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/image-upload.html
-                    // 'Base64UploadAdapter',
                     'RealTimeCollaborativeComments',
                     'RealTimeCollaborativeTrackChanges',
                     'RealTimeCollaborativeRevisionHistory',
@@ -191,10 +200,7 @@ $(document).ready(function() {
                     'RevisionHistory',
                     'Pagination',
                     'WProofreader',
-                    // Careful, with the Mathtype plugin CKEditor will not load when loading this sample
-                    // from a local file system (file://) - load this site via HTTP server if you enable MathType.
                     'MathType',
-                    // The following features are part of the Productivity Pack and require additional license.
                     'SlashCommand',
                     'Template',
                     'DocumentOutline',
@@ -203,19 +209,112 @@ $(document).ready(function() {
                     'PasteFromOfficeEnhanced',
                     'CaseChange'
                 ]
-            
             })
-            .catch( error => {
-                console.error( error );
+            .catch(error => {
+                console.error(error);
             });
     });
+</script> -->
+<!-- Importmap for CKEditor 5 -->
+<!-- <script type="importmap">
+    {
+        "imports": {
+            "ckeditor5": "https://cdn.ckeditor.com/ckeditor5/43.0.0/ckeditor5.js",
+            "ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/43.0.0/"
+        }
+    }
+</script> -->
+
+<!-- CKEditor 5 Configuration Script -->
+<!-- <script type="module">
+    import {
+        ClassicEditor,
+        Essentials,
+        Paragraph,
+        Bold,
+        Italic,
+        Strikethrough,
+        Underline,
+        Superscript,
+        Subscript,
+        RemoveFormat,
+        Font,
+        FontSize,
+        FontFamily,
+        FontColor,
+        FontBackgroundColor,
+        Alignment,
+        Link,
+        Image,
+        ImageToolbar,
+        ImageUpload,
+        MediaEmbed,
+        BlockQuote,
+        TableToolbar,
+        List,
+        TodoList,
+        Code,
+        CodeBlock,
+        SpecialCharacters,
+        SpecialCharactersEssentials,
+        HorizontalLine,
+        PageBreak,
+        HtmlEmbed,
+        TextPartLanguage,
+        Heading,
+        PasteFromOffice, // Add this line
+   
+       
+    } from 'ckeditor5';
+
+    ClassicEditor
+        .create(document.querySelector('#editor'), {
+            plugins: [
+                Essentials, Paragraph, Bold, Italic, Strikethrough, Underline, Superscript, Subscript,
+                RemoveFormat, Font, FontSize, FontFamily, FontColor, FontBackgroundColor, Alignment,
+                Link, Image, ImageToolbar, ImageUpload, MediaEmbed, BlockQuote, TableToolbar,
+                List, TodoList, Code, CodeBlock, SpecialCharacters, SpecialCharactersEssentials, HorizontalLine,
+                PageBreak, HtmlEmbed, TextPartLanguage, Heading, PasteFromOffice,
+            ],
+            toolbar: [
+                'heading', '|',
+                'bold', 'italic', 'strikethrough', 'underline', 'superscript', 'subscript', 'removeFormat', '|',
+                'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', '|',
+                'alignment', '|',
+                'bulletedList', 'numberedList', 'todoList', '|',
+                'link', 'uploadImage', 'blockQuote','mediaEmbed', 'code', 'codeBlock', '|',
+                'specialCharacters', 'horizontalLine', 'pageBreak', '|',
+                'htmlEmbed', 'textPartLanguage'
+            ],
+            image: {
+                toolbar: [
+                    'imageTextAlternative', 'linkImage'
+                ]
+            },
+            table: {
+                contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
+            },
+            heading: {
+                options: [
+                    { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                    { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                    { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                    { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
+                    { model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4' },
+                    { model: 'heading5', view: 'h5', title: 'Heading 5', class: 'ck-heading_heading5' },
+                    { model: 'heading6', view: 'h6', title: 'Heading 6', class: 'ck-heading_heading6' }
+                ]
+            }
+        })
+        .then(editor => {
+            window.editor = editor;
+        })
+        .catch(error => {
+            console.error(error);
+        });
+</script> -->
+
+<script>
+    phoneNo = "{{ old('region_code').old('contact') }}"
 </script>
-
 @endpush
-@section('phone_js')
-    <script>
-        phoneNo = "{{ old('region_code').old('contact') }}"
-    </script>
-@endsection
-
-

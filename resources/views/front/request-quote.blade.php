@@ -92,7 +92,7 @@
 
       <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <div class="contact-panel">
-          <form class="contact-panel__form" method="post" id="contactForm">
+        <form class="contact-panel__form" method="post" id="inquiryForm">
             @csrf
             <div class="row">
               <div class="col-12">

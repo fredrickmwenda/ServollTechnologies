@@ -52,10 +52,7 @@ class BlogTable extends LivewireTableComponent
             Column::make(__('blog.title'), 'title')
                 ->sortable()
                 ->searchable(),
-            // Column::make(__('messages.blog.tags'), 'tags')
-            //     ->format(function ($value, $row, $column) {
-            //         return $row->tags->pluck('name')->join(', ');
-            //     }),
+            
             
             Column::make(__('blog.category'), 'category.name')->sortable(),
 

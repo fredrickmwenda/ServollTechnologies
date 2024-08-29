@@ -3,16 +3,16 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class ClientContactMail extends Mailable
+class ClientAdminEnquiryMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     */
     public $data;
 
     public function __construct($data)
@@ -22,8 +22,7 @@ class ClientContactMail extends Mailable
 
     public function build()
     {
-        return $this->view('emails.client_contact_form')
+        return $this->view('emails.client_admin_enquiry')
                     ->with('data', $this->data);
     }
-
 }
