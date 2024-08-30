@@ -118,13 +118,13 @@
 
 
 
-    @toastScripts
+    
     <script src="{{ asset('assets/smart/js/jquery-3.5.1.min.js')}}"></script>
     <script src="{{ asset('assets/smart/js/plugins.js')}}"></script>
     <script src="{{ asset('assets/smart/js/main.js')}}"></script>
     <script src="{{ asset('assets/smart/js/toastr.min.js') }}"></script>
     <script src="{{ mix('assets/js/auth/auth.js') }}"></script>
-
+    @toastScripts
     @stack('js')
     @livewireScripts()
 
