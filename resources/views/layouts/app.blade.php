@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="{{asset('trezo/css/apexcharts.css')}}">
     <link rel="stylesheet" href="{{asset('trezo/css/prism.css')}}">
     <link rel="stylesheet" href="{{asset('trezo/css/rangeslider.css')}}">
-    <link rel="stylesheet" href="{{asset('trezo/css/sweetalert.min.cs')}}">
+    <link rel="stylesheet" href="{{asset('trezo/css/sweetalert.min.css')}}">
     <link rel="stylesheet" href="{{asset('trezo/css/quill.snow.css')}}">
     <link rel="stylesheet" href="{{asset('trezo/css/google-icon.css')}}">
     <link rel="stylesheet" href="{{asset('trezo/css/remixicon.css')}}">
@@ -72,17 +72,32 @@
 
 <body class="boxed-size">
     <!-- Start Preloader Area -->
-    <div class="preloader" id="preloader">
-        <div class="preloader">
+    <div class="preloader">
             <div class="waviy position-relative">
-                <span class="d-inline-block">T</span>
-                <span class="d-inline-block">R</span>
+                <span class="d-inline-block">S</span>
                 <span class="d-inline-block">E</span>
-                <span class="d-inline-block">Z</span>
+                <span class="d-inline-block">R</span>
+                <span class="d-inline-block">V</span>
                 <span class="d-inline-block">O</span>
+                <span class="d-inline-block">L</span>
+                <span class="d-inline-block">L</span>
+
+                <span class="d-inline-block">T</span>
+                <span class="d-inline-block">E</span>
+                <span class="d-inline-block">C</span>
+                <span class="d-inline-block">H</span>
+                <span class="d-inline-block">N</span>
+                <span class="d-inline-block">O</span>
+                <span class="d-inline-block">L</span>
+                <span class="d-inline-block">I</span>
+                <span class="d-inline-block">G</span>
+                <span class="d-inline-block">I</span>
+                <span class="d-inline-block">E</span>
+                <span class="d-inline-block">S</span>
+
+
             </div>
         </div>
-    </div>
     @yield('phone_js')
     @include('layouts.sidebar')
 

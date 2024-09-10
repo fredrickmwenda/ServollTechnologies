@@ -87,3 +87,33 @@
 </div>
 @endsection
 
+@push('scripts')
+<script>
+    "use strict";
+    $(document).ready(function() {
+        $('[data-toggle="password"]').each(function() {
+            var s = $(this),
+                e = $(this).parent().find(".input-icon");
+                
+            e.css("cursor", "pointer").addClass("input-password-hide");
+            
+            e.on("click", function() {
+                if (e.hasClass("input-password-hide")) {
+                    // Change to eye (password visible)
+                    e.removeClass("input-password-hide").addClass("input-password-show");
+                    e.find("img").attr("src", "{{asset('trezo/images/eye.svg')}}"); // Change to visible eye image
+                    s.attr("type", "text");
+                } else {
+                    // Change to eye-off (password hidden)
+                    e.removeClass("input-password-show").addClass("input-password-hide");
+                    e.find("img").attr("src", "{{asset('trezo/images/eye-off.svg')}}"); // Change to hidden eye image
+                    s.attr("type", "password");
+                }
+            });
+        });
+    });
+
+</script>
+
+@endpush
+

@@ -26,19 +26,101 @@ class DashboardRepository
         return Dashboard::class;
     }
 
+    // public function getDashboardData(): array
+    // {
+    //     $currentMonth = now()->startOfMonth();
+    //     $previousMonth = now()->subMonth()->startOfMonth();
+
+    //     $currentMonthInvoices = Invoice::
+
+
+    //     $invoice = Invoice::all();
+    //     $data['total_invoices'] = $invoice->count();
+    //     $data['total_clients'] = Client::count();
+    //     $data['total_products'] = Product::count();
+    //     $data['paid_invoices'] = $invoice->where('status', Invoice::PAID)->count();
+    //     $data['unpaid_invoices'] = $invoice->where('status', Invoice::UNPAID)->count();
+    //     $data['partially_paid'] = $invoice->where('status', Invoice::PARTIALLY)->count();
+    //     $data['overdue_invoices'] = $invoice->where('status', Invoice::OVERDUE)->count();
+
+    //     return $data;
+    // }
     public function getDashboardData(): array
     {
-        $invoice = Invoice::all();
-        $data['total_invoices'] = $invoice->count();
+        // Get current and previous month
+        $currentMonth = now()->startOfMonth();
+        $previousMonth = now()->subMonth()->startOfMonth();
+    
+        // Get invoices for the current and previous month
+        $currentMonthInvoices = Invoice::whereBetween('created_at', [$currentMonth, now()])->get();
+        $previousMonthInvoices = Invoice::whereBetween('created_at', [$previousMonth, $currentMonth->subSecond()])->get();
+
+
+        //Get Clients for current and Previous Month
+        $currentMonthClients = Client::whereBetween('created_at', [$currentMonth, now()])->get();
+        $previousMonthClients = Client::whereBetween('created_at', [$previousMonth,$currentMonth->subSecond() ])->get();
+    
+        // Totals invoices for the current month
+        $totalCurrentInvoices = $currentMonthInvoices->count();
+        $paidCurrentInvoices = $currentMonthInvoices->where('status', Invoice::PAID)->count();
+        $unpaidCurrentinvoices = $currentMonthInvoices->where('status', Invoice::UNPAID)->count();
+        $partiallyCurrentInvoices = $currentMonthInvoices->where('status', Invoice::PARTIALLY)->count();
+        $overdueCurrentinvoices = $currentMonthInvoices->where('status', Invoice::OVERDUE)->count();
+    
+        //Total Clients for the current Month
+        $totalCurrentClients = $currentMonthClients->count();
+
+        
+        // Totals for the previous month
+        $previousTotalInvoices = $previousMonthInvoices->count();
+        $previousPaidInvoices = $previousMonthInvoices->where('status', Invoice::PAID)->count();
+        $previousUnpaidInvoices = $previousMonthInvoices->where('status', Invoice::UNPAID)->count();
+        $previousPartiallyPaid = $previousMonthInvoices->where('status', Invoice::PARTIALLY)->count();
+        $previousOverdueInvoices = $previousMonthInvoices->where('status', Invoice::OVERDUE)->count();
+    
+        //Previous Clients for the current Month
+        $previousTotalClients = $previousMonthClients->count();
+        // Calculate percentage change
+        $data['invoice_percentage_change'] = $this->calculatePercentageChange($previousTotalInvoices, $totalCurrentInvoices);
+        $data['paid_invoices_percentage_change'] = $this->calculatePercentageChange($previousPaidInvoices, $paidCurrentInvoices);
+        $data['unpaid_invoices_percentage_change'] = $this->calculatePercentageChange($previousUnpaidInvoices, $unpaidCurrentinvoices);
+        $data['partially_paid_percentage_change'] = $this->calculatePercentageChange($previousPartiallyPaid, $partiallyCurrentInvoices);
+        $data['overdue_invoices_percentage_change'] = $this->calculatePercentageChange($previousOverdueInvoices, $overdueCurrentinvoices);
+        $data['client_percentage_change'] = $this->calculatePercentageChange($previousTotalClients, $totalCurrentClients);
+    
+        // Get other data
+        //All clients
         $data['total_clients'] = Client::count();
         $data['total_products'] = Product::count();
+        $invoice = Invoice::all();
+        $data['total_invoices'] = $invoice->count();
         $data['paid_invoices'] = $invoice->where('status', Invoice::PAID)->count();
         $data['unpaid_invoices'] = $invoice->where('status', Invoice::UNPAID)->count();
         $data['partially_paid'] = $invoice->where('status', Invoice::PARTIALLY)->count();
         $data['overdue_invoices'] = $invoice->where('status', Invoice::OVERDUE)->count();
-
+    
+        //dd($data);
         return $data;
     }
+    
+    /**
+     * Calculate percentage change between two values
+     */
+    private function calculatePercentageChange($previous, $current)
+    {
+        if ($previous == 0 && $current == 0) {
+            return 0;
+        }
+    
+        if ($previous == 0) {
+            return $current > 0 ? 100 : 0;
+        }
+    
+        return (($current - $previous) / $previous) * 100;
+    }
+    
+
+   
 
     public function getClientDashboardData(): array
     {

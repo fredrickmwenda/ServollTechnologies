@@ -3,10 +3,157 @@
         {{ __('messages.dashboard') }}
     @endsection
     @section('content')
-        <div class="container-fluid">
+        
             <div class="d-flex flex-column">
+            @include('flash::message')
+               <div class="row justify-content-center">
+                        <div class="col-xl-12">
+                            <div class="card bg-white border-0 rounded-3 mb-4">
+                                <div class="card-body p-4" style="padding-bottom: 0 !important;">
+                                    <div class="mb-3 mb-lg-4">
+                                        <h3 class="mb-0">Company Overview</h3>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xxl-6 col-xl-6 col-sm-6">
+                                            <div class="card bg-primary bg-opacity-10 border-primary border-opacity-10 rounded-3 mb-4 stats-box style-three">
+                                                <div class="card-body p-4">
+                                                    <div class="d-flex align-items-center mb-19">
+                                                        <div class="flex-shrink-0">
+                                                            <i class="material-symbols-outlined fs-40 text-primary">person</i>
+                                                        </div>
+                                                        <div class="flex-grow-1 ms-2">
+                                                            <span>Total Clients</span>
+                                                            <h3 class="fs-20 mt-1 mb-0">{{ formatTotalAmount($total_clients) }}</h3>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between flex-wrap gap-2 align-items-center">
+                                                        <span class="fs-12">Clients this month</span>
+                                                        @if($client_percentage_change > 0)
+                                                        <span class="count up fw-medium ms-0">+{{$client_percentage_change}}%</span>
+                                                        @elseif($client_percentage_change < 0)
+                                                        <span class="count down fw-medium ms-0">-{{$client_percentage_change}}%</span>
+                                                        @else
+                                                        <span class="fw-medium ms-0">Add Data</span>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-6 col-xl-6 col-sm-6">
+                                            <div class="card bg-danger bg-opacity-10 border-danger border-opacity-10 rounded-3 mb-4 stats-box style-three">
+                                                <div class="card-body p-4">
+                                                    <div class="d-flex align-items-center mb-19">
+                                                        <div class="flex-shrink-0">
+                                                            <i class="material-symbols-outlined fs-40 text-danger">stacks</i>
+                                                        </div>
+                                                        <div class="flex-grow-1 ms-2">
+                                                            <span>Total Invoices</span>
+                                                            <h3 class="fs-20 mt-1 mb-0">{{$total_invoices}} </h3>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between flex-wrap gap-2 align-items-center">
+                                                        <span class="fs-12">Invoices this month</span>
+                                                        @if($invoice_percentage_change > 0)
+                                                        <span class="count up fw-medium ms-0">+{{$invoice_percentage_change}}%</span>
+                                                        @elseif($invoice_percentage_change < 0)
+                                                        <span class="count down fw-medium ms-0">-{{$invoice_percentage_change}}%</span>
+                                                        @else
+                                                        <span class="fw-medium ms-0">Add Data</span>
+                                                        @endif
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-3 col-xl-3 col-sm-6">
+                                            <div class="card bg-success bg-opacity-10 border-success border-opacity-10 rounded-3 mb-4 stats-box style-three">
+                                                <div class="card-body p-4">
+                                                    <div class="d-flex align-items-center mb-19">
+                                                        <div class="flex-shrink-0">
+                                                            <i class="material-symbols-outlined fs-40 text-success">assignment_turned_in</i>
+                                                        </div>
+                                                        <div class="flex-grow-1 ms-2">
+                                                            <span>Paid Invoices</span>
+                                                            <h3 class="fs-20 mt-1 mb-0">{{ formatTotalAmount($paid_invoices) }}</h3>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between flex-wrap gap-2 align-items-center">
+                                                        <span class="fs-12">Projects this month</span>
+                                                        <span class="count down fw-medium ms-0">-15%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xxl-3 col-xl-3 col-sm-6">
+                                            <div class="card bg-success bg-opacity-10 border-success border-opacity-10 rounded-3 mb-4 stats-box style-three">
+                                                <div class="card-body p-4">
+                                                    <div class="d-flex align-items-center mb-19">
+                                                        <div class="flex-shrink-0">
+                                                            <i class="material-symbols-outlined fs-40 text-success">assignment_turned_in</i>
+                                                        </div>
+                                                        <div class="flex-grow-1 ms-2">
+                                                            <span>Unpaid Invoices</span>
+                                                            <h3 class="fs-20 mt-1 mb-0">{{ formatTotalAmount($unpaid_invoices) }}</h3>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between flex-wrap gap-2 align-items-center">
+                                                        <span class="fs-12">Projects this month</span>
+                                                        <span class="count down fw-medium ms-0">-15%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xxl-3 col-xl-3 col-sm-6">
+                                            <div class="card bg-success bg-opacity-10 border-success border-opacity-10 rounded-3 mb-4 stats-box style-three">
+                                                <div class="card-body p-4">
+                                                    <div class="d-flex align-items-center mb-19">
+                                                        <div class="flex-shrink-0">
+                                                            <i class="material-symbols-outlined fs-40 text-success">assignment_turned_in</i>
+                                                        </div>
+                                                        <div class="flex-grow-1 ms-2">
+                                                            <span>Partial Invoices</span>
+                                                            <h3 class="fs-20 mt-1 mb-0">{{ formatTotalAmount($partially_paid) }}</h3>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between flex-wrap gap-2 align-items-center">
+                                                        <span class="fs-12">Projects this month</span>
+                                                        <span class="count down fw-medium ms-0">-15%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xxl-3 col-xl-3 col-sm-6">
+                                            <div class="card bg-success bg-opacity-10 border-success border-opacity-10 rounded-3 mb-4 stats-box style-three">
+                                                <div class="card-body p-4">
+                                                    <div class="d-flex align-items-center mb-19">
+                                                        <div class="flex-shrink-0">
+                                                            <i class="material-symbols-outlined fs-40 text-success">assignment_turned_in</i>
+                                                        </div>
+                                                        <div class="flex-grow-1 ms-2">
+                                                            <span>Overdue Invoices</span>
+                                                            <h3 class="fs-20 mt-1 mb-0">{{ formatTotalAmount($overdue_invoices) }}</h3>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between flex-wrap gap-2 align-items-center">
+                                                        <span class="fs-12">Projects this month</span>
+                                                        <span class="count down fw-medium ms-0">-15%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      
+                    </div>
                 <div class="row">
-                    <div class="col-12">
+                    <!-- <div class="col-12">
                         @include('flash::message')
                         <div class="row">
                             {{-- Clients Widget --}}
@@ -147,7 +294,7 @@
                                 </a>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="col-12 mb-4">
                         <div class="">
                             <div class="card mt-3">
@@ -198,6 +345,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        
         {{ Form::hidden('currency', getCurrencySymbol(), ['id' => 'currency']) }}
     @endsection
