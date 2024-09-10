@@ -1,61 +1,89 @@
 @extends('layouts.auth')
 @section('title')
-    {{ __('messages.login.login') }}
+{{ __('messages.login.login') }}
 @endsection
 @section('content')
-    <div class="d-flex flex-column flex-column-fluid align-items-center justify-content-center p-4">
-        <div class="col-12 text-center">
-            <a href="{{ url('/') }}" class="image mb-7 mb-sm-10 image-medium">
-                <img alt="Logo" src="{{ getLogoUrl() }}" class="img-fluid object-contain">
-            </a>
+
+<div class="m-auto m-1230">
+    <div class="row align-items-center">
+        <div class="col-lg-6 d-none d-lg-block">
+            <img src="{{asset('trezo/images/login.jpg')}}" class="rounded-3" alt="login">
         </div>
-        <div class="width-540">
-            @include('flash::message')
-            @include('layouts.errors')
-        </div>
-        <div class="bg-white rounded-15 shadow-md width-540 px-5 px-sm-7 py-10 mx-auto">
-            <h1 class="text-center mb-7">{{ __('messages.login.sign_in') }}</h1>
-            <form method="POST" action="{{ route('login') }}">
-                @csrf
-                <div class="mb-sm-7 mb-4">
-                    <label for="email" class="form-label">
-                        {{ __('messages.login.email').':' }}<span class="required"></span>
-                    </label>
-                    <input name="email" type="email" class="form-control" autofocus id="email" aria-describedby="emailHelp" required placeholder=" {{ __('messages.login.email') }}">
+        <div class="col-lg-6">
+            <div class="mw-480 ms-lg-auto">
+                <a href="#" class="d-inline-block mb-4">
+                    <img src="{{ getLogoUrl() }}" class="rounded-3 for-light-logo" alt="login">
+                    <img src="{{asset('trezo/images/white-logo.svg')}}" class="rounded-3 for-dark-logo" alt="login">
+                </a>
+                <h3 class="fs-28 mb-2">Welcome back to Servoll Technologies!</h3>
+                <p class="fw-medium fs-16 mb-4">Sign In with social account or enter your details</p>
+                <div class="row justify-content-center">
+                    <div class="col-lg-4 col-sm-4">
+                        <a href="#" target="_blank" class="btn btn-outline-secondary bg-transparent w-100 py-2 hover-bg mb-4" style="border-color: #D6DAE1;">
+                            <img src="{{asset('trezo/images/google.svg')}}" alt="google">
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-4">
+                        <a href="#" target="_blank" class="btn btn-outline-secondary bg-transparent w-100 py-2 hover-bg mb-4" style="border-color: #D6DAE1;">
+                            <img src="{{asset('trezo/images/facebook2.svg')}}" alt="facebook2">
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-4">
+                        <a href="#" target="_blank" class="btn btn-outline-secondary bg-transparent w-100 py-2 hover-bg mb-4" style="border-color: #D6DAE1;">
+                            <img src="{{asset('trezo/images/apple.svg')}}" alt="apple">
+                        </a>
+                    </div>
                 </div>
-                <div class="mb-sm-7 mb-4">
-                    <div class="d-flex justify-content-between">
-                        <label for="password" class="form-label">{{ __('messages.login.password').':' }}<span
-                                    class="required"></span></label>
-                        @if (Route::has('password.request'))
-                            <a href="{{ route('password.request') }}" class="link-info fs-6 text-decoration-none">
-                                {{ __('messages.login.forget_your_password') }}
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+                    <div class="form-group mb-4">
+                        <label class="label text-secondary">Email Address</label>
+                        <input type="email" class="form-control h-55" placeholder="example@trezo.com">
+                    </div>
+                    <div class="form-group mb-sm-7 mb-4">
+                        <div class="d-flex justify-content-between">
+                            <label for="password" class="form-label">Password:<span class="required"></span></label>
+                            <a href="https://servolltech.co.ke/forgot-password" class="link-info fs-6 text-decoration-none">
+                                Forgot your password?
                             </a>
-                            
-                        @endif
-                    </div>
-                    <div class="mb-3 position-relative">
-                        <input name="password" type="password" class="form-control" id="password" required placeholder="{{ __('messages.login.password')}}" aria-label="Password" data-toggle="password">
-                        <span class="position-absolute d-flex align-items-center top-0 bottom-0 end-0 me-4 input-icon input-password-hide cursor-pointer text-gray-600">
-                                <i class="bi bi-eye-slash-fill"></i>
+
+                        </div>
+                        <div class="mb-3 position-relative">
+                            <input name="password" type="password" class="form-control" id="password" required="" placeholder="Password" aria-label="Password" data-toggle="password">
+                            <span class="position-absolute d-flex align-items-center top-0 bottom-0 end-0 me-4 input-icon input-password-hide cursor-pointer text-gray-600" style="cursor: pointer;">
+                                <img src="{{asset('trezo/images/eye-off.svg')}}" class=""  />
                             </span>
+                        </div>
                     </div>
-                </div>
-                <div class="mb-sm-7 mb-4 form-check">
-                    <input type="checkbox" class="form-check-input" id="remember_me" >
-                    <label class="form-check-label" for="remember_me">{{ __('messages.login.remember_me') }}</label>
-                </div>
-                <div class="d-grid">
-                    <button type="submit" class="btn btn-primary">{{ __('messages.login.login') }}</button>
-                </div>
-{{--                <div class="d-flex align-items-center mb-10 mt-4">--}}
-{{--                    <span class="text-gray-700 me-2">{{ __('New Here?') }}</span>--}}
-{{--                    <a href="{{ route('register') }}" class="link-info fs-6 text-decoration-none">--}}
-{{--                        {{ __('Create an Account') }}--}}
-{{--                    </a>--}}
-{{--                </div>--}}
-            </form>
+                    <div  class="form-group mb-4" >
+                    <button type="submit" class="btn btn-primary fw-medium py-2 px-3 w-100">
+                        Login
+                    </button>
+
+                    </div>
+                    <!-- <div class="form-group mb-4">
+                                    <label class="label text-secondary">Password</label>
+                                    <input type="password" class="form-control h-55" placeholder="Type password">
+                                </div> -->
+                    <!-- <div class="form-group mb-4">
+                        <button type="submit" class="btn btn-primary fw-medium py-2 px-3 w-100">
+                            <div class="d-flex align-items-center justify-content-center py-1">
+                                <i class="material-symbols-outlined text-white fs-20 me-2">login</i>
+                                <span>Login</span>
+                            </div>
+                        </button>
+                    </div> -->
+                    <!-- <div class="form-group">
+                                    <p>
+                                        Don’t have an account. 
+                                        <a href="#" class="fw-medium text-primary text-decoration-none">Register</a>
+                                    </p>
+                                </div> -->
+                </form>
+            </div>
         </div>
     </div>
+</div>
+</div>
 @endsection
 
