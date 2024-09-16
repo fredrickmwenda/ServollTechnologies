@@ -38,7 +38,7 @@
                     @csrf
                     <div class="form-group mb-4">
                         <label class="label text-secondary">Email Address</label>
-                        <input type="email" class="form-control h-55" placeholder="example@trezo.com">
+                        <input type="email" name="email" class="form-control h-55" placeholder="example@trezo.com">
                     </div>
                     <div class="form-group mb-sm-7 mb-4">
                         <div class="d-flex justify-content-between">

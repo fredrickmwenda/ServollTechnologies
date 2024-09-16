@@ -165,6 +165,7 @@ function preparePaymentViewStatusChart(result){
 function prepareInvoiceViewStatusChart(result){
     $('#invoice-overview-container').html('');
     let data = result.data;
+    console.log(data);
     if (data.total_paid_invoices === 0 && data.total_unpaid_invoices === 0) {
         $('#invoice-overview-container').empty();
         $('#invoice-overview-container').
@@ -183,7 +184,7 @@ function prepareInvoiceViewStatusChart(result){
         datasets: [
             {
                 data: data.dataPoints,
-                backgroundColor: ['#1100ff', '#ff0000'],
+                backgroundColor: ['#1100ff', '#ff0000', '#0DCAF0', '#AD63F6'],
             }],
     };
 

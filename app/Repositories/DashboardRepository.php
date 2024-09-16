@@ -157,12 +157,17 @@ class DashboardRepository
         $invoice = Invoice::all();
         $data['total_paid_invoices'] = $invoice->where('status', Invoice::PAID)->count();
         $data['total_unpaid_invoices'] = $invoice->where('status', Invoice::UNPAID)->count();
+        $data['total_partial_invoices'] = $invoice->where('status', Invoice::PARTIALLY)->count();
+        $data['total_overdue_invoices'] = $invoice->where('status', Invoice::OVERDUE)->count();
+
         $data['labels'] = [
             __('messages.paid_invoices'),
             __('messages.unpaid_invoices'),
+            __('messages.overdue_invoices'),
+            __('messages.partial_invoices'),
         ];
-        $data['dataPoints'] = [$data['total_paid_invoices'], $data['total_unpaid_invoices']];
-
+        $data['dataPoints'] = [$data['total_paid_invoices'], $data['total_unpaid_invoices'], $data['total_partial_invoices'], $data['total_overdue_invoices']];
+        info($data);
         return $data;
     }
 

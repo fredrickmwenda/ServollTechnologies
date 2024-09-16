@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{asset('trezo/css/swiper-bundle.min.css')}}">
     <link rel="stylesheet" href="{{asset('trezo/css/fullcalendar.main.css')}}">
     <link rel="stylesheet" href="{{asset('trezo/css/style.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/smart/css/toastr.min.css')}}">
 
 
     <!-- <link href="{{ asset('assets/smart/images/logo/favicon.ico')}}" rel="icon">
@@ -76,12 +77,7 @@
     <!-- Start Main Content Area -->
 
 
-    <!-- End Theme Setting Area -->
 
-
-    <!-- <div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed authImage">
-    @yield('content')
-</div> -->
 
     <!-- Scripts -->
     <script src="{{asset('trezo/js/bootstrap.bundle.min.js')}}"></script>
@@ -100,12 +96,29 @@
     <script src="{{asset('trezo/js/fullcalendar.main.js')}}"></script>
     <script src="{{asset('trezo/js/custom/apexcharts.js')}}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="{{ asset('assets/smart/css/toastr.min.css')}}">
 
     <script src="{{asset('trezo/js/custom/custom.js')}}"></script>
     <script src="{{ asset('messages.js') }}"></script>
-    <!-- <script src="{{ mix('assets/js/auth-third-party.js') }}"></script>
-    <script src="{{ mix('assets/js/auth/auth.js') }}"></script> -->
     @stack('scripts')
+
+    @if (session('error'))
+    <script>
+      $(document).ready(function() {
+        toastr.error('{{ session('error ') }}', 'Error!', {
+            closeButton: true,
+            // progressBar: true,
+            showMethod: 'slideDown',
+            hideMethod: 'slideUp',
+            timeOut: 3000, // Adjust the timeout as needed
+            extendedTimeOut: 1000,
+            positionClass: 'toast-top-right', // Adjust the position as needed
+            //iconClass: 'toast-error', // Add a custom class for red color
+            iconClass: 'toast-error custom-toast-error',
+          });
+      });
+    </script>
+    @endif
 
 </body>
 

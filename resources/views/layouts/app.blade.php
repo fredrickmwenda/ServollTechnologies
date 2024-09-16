@@ -18,6 +18,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/third-party.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ mix('assets/css/page.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/additional.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/smart/css/toastr.min.css')}}">
+
     @if(!Auth::user()->dark_mode)
     <!-- <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}"> -->
 
@@ -73,44 +75,43 @@
 <body class="boxed-size">
     <!-- Start Preloader Area -->
     <div class="preloader">
-            <div class="waviy position-relative">
-                <span class="d-inline-block">S</span>
-                <span class="d-inline-block">E</span>
-                <span class="d-inline-block">R</span>
-                <span class="d-inline-block">V</span>
-                <span class="d-inline-block">O</span>
-                <span class="d-inline-block">L</span>
-                <span class="d-inline-block">L</span>
+        <div class="waviy position-relative">
+            <span class="d-inline-block">S</span>
+            <span class="d-inline-block">E</span>
+            <span class="d-inline-block">R</span>
+            <span class="d-inline-block">V</span>
+            <span class="d-inline-block">O</span>
+            <span class="d-inline-block">L</span>
+            <span class="d-inline-block">L</span>
 
-                <span class="d-inline-block">T</span>
-                <span class="d-inline-block">E</span>
-                <span class="d-inline-block">C</span>
-                <span class="d-inline-block">H</span>
-                <span class="d-inline-block">N</span>
-                <span class="d-inline-block">O</span>
-                <span class="d-inline-block">L</span>
-                <span class="d-inline-block">I</span>
-                <span class="d-inline-block">G</span>
-                <span class="d-inline-block">I</span>
-                <span class="d-inline-block">E</span>
-                <span class="d-inline-block">S</span>
+            <span class="d-inline-block">T</span>
+            <span class="d-inline-block">E</span>
+            <span class="d-inline-block">C</span>
+            <span class="d-inline-block">H</span>
+            <span class="d-inline-block">N</span>
+            <span class="d-inline-block">O</span>
+            <span class="d-inline-block">L</span>
+            <span class="d-inline-block">I</span>
+            <span class="d-inline-block">G</span>
+            <span class="d-inline-block">I</span>
+            <span class="d-inline-block">E</span>
+            <span class="d-inline-block">S</span>
 
 
-            </div>
         </div>
+    </div>
     @yield('phone_js')
     @include('layouts.sidebar')
 
     <div class="container-fluid">
         <div class="main-content d-flex flex-column">
             <!-- Start Header Area -->
-            @include('layouts.header')
+            <!-- @include('layouts.header') -->
 
             <!-- End Header Area -->
 
             <div class="main-content-container overflow-hidden">
                 @yield('content')
-
             </div>
 
             <div class="flex-grow-1"></div>
@@ -120,25 +121,8 @@
 
             <!-- End Footer Area -->
         </div>
-    </div>
-    <!-- <div class="d-flex flex-column flex-root">
-        <div class="d-flex flex-row flex-column-fluid">
-            <div class="wrapper d-flex flex-column flex-row-fluid overflow-x-hidden">
-                <div class='container-fluid d-flex align-items-stretch justify-content-between px-0'>
-                    @include('layouts.header')
-                </div>
-                <div class='content d-flex flex-column flex-column-fluid pt-7'>
-                    @yield('header_toolbar')
-                    <div class='d-flex flex-wrap flex-column-fluid'>
-                        @yield('content')
-                    </div>
-                </div>
-                <div class='container-fluid'>
-                    @include('layouts.footer')
-                </div>
-            </div>
-        </div>
-    </div> -->
+    </div> 
+
     <script src="{{asset('trezo/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('trezo/js/sidebar-menu.js')}}"></script>
     <script src="{{asset('trezo/js/dragdrop.js')}}"></script>
@@ -154,11 +138,30 @@
     <script src="{{asset('trezo/js/swiper-bundle.min.js')}}"></script>
     <script src="{{asset('trezo/js/fullcalendar.main.js')}}"></script>
     <script src="{{asset('trezo/js/custom/apexcharts.js')}}"></script>
+    <script src="{{ asset('assets/smart/js/toastr.min.js') }}"></script>
+
     <script src="{{asset('trezo/js/custom/custom.js')}}"></script>
     @include('profile.changePassword')
     @include('profile.changelanguage')
     @stack('js')
-
+    @if (session('error'))
+    <script>
+      $(document).ready(function() {
+        toastr.error('{{ session('
+          error ') }}', 'Error!', {
+            closeButton: true,
+            // progressBar: true,
+            showMethod: 'slideDown',
+            hideMethod: 'slideUp',
+            timeOut: 3000, // Adjust the timeout as needed
+            extendedTimeOut: 1000,
+            positionClass: 'toast-top-right', // Adjust the position as needed
+            //iconClass: 'toast-error', // Add a custom class for red color
+            iconClass: 'toast-error custom-toast-error',
+          });
+      });
+    </script>
+    @endif
 </body>
 
 </html>
