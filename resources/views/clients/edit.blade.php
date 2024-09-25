@@ -26,7 +26,7 @@
             </div>
         </div>
     </div>
-    {{ Form::hidden('phone_no', !empty($client) ? (($client->user->region_code).($client->user->contact)) : null,['id' => 'phoneNo']) }}
+    {{ Form::hidden('phone_no', !empty($client) ? (($client->region_code).($client->contact)) : null,['id' => 'phoneNo']) }}
     {{ Form::hidden('is_edit', true ,['id' => 'isEdit']) }}
     {{ Form::hidden('country_id', $client->country_id ,['id' => 'clientCountryId']) }}
     {{ Form::hidden('state_id', $client->state_id ,['id' => 'clientStateId']) }}
@@ -35,6 +35,6 @@
 @endsection
 @section('phone_js')
     <script>
-        phoneNo = "{{ !empty($client) ? (($client->user->region_code).($client->user->contact)) : null }}";
+        phoneNo = "{{ !empty($client) ? (($client->region_code).($client->contact)) : null }}";
     </script>
 @endsection

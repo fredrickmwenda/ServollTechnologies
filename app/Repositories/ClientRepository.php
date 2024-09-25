@@ -58,9 +58,9 @@ class ClientRepository extends BaseRepository
         //dd($input);
         try {
             DB::beginTransaction();
-            $input['client_password'] = $input['password'];
-            $input['password'] = Hash::make($input['password']);
-
+            // $input['client_password'] = $input['password'];
+            // $input['password'] = Hash::make($input['password']);
+ 
             if (isset($input['contact'])) {
                 $checkUniqueness = checkContactUniqueness($input['contact'], $input['region_code']);
                 if ($checkUniqueness) {
@@ -69,19 +69,28 @@ class ClientRepository extends BaseRepository
             }
 
             /** @var User $user */
-            $user = User::create($input);
-            $user->assignRole(Role::ROLE_CLIENT);
+           // $user = User::create($input);
+            //$user->assignRole(Role::ROLE_CLIENT);
 
-            $input['user_id'] = $user->id;
+            //$input['user_id'] = $user->id;
             $client = Client::create($input);
 
             if (isset($input['profile']) && ! empty($input['profile'])) {
-                $user->addMedia($input['profile'])->toMediaCollection(User::PROFILE, config('app.media_disc'));
+                $client->addMedia($input['profile'])->toMediaCollection(Client::ACCOUNT, config('app.media_disc'));
             }
             if ($input['avatar_remove'] == 1 && isset($input['avatar_remove']) && empty($input['profile'])) {
-                $user->clearMediaCollection(User::PROFILE);
-                $user->media()->delete();
+                $client->clearMediaCollection(Client::ACCOUNT);
+                $client->media()->delete();
             }
+
+
+            // if (isset($input['company'])) {
+            //     $client->addMedia($input['profile'])->toMediaCollection(Client::ACCOUNT, config('app.media_disc'));
+            // }
+            // if ($input['avatar_remove'] == 1 && isset($input['avatar_remove']) && empty($input['profile'])) {
+            //     $client->clearMediaCollection(Client::ACCOUNT);
+            //     $client->media()->delete();
+            // }
             //look on the email notification
             // if (getSettingValue('mail_notification')) {
             //     Mail::to($input['email'])->send(new CreateNewClientMail($input));
@@ -90,6 +99,7 @@ class ClientRepository extends BaseRepository
 
             return true;
         } catch (Exception $e) {
+            info($e->getMessage());
             DB::rollBack();
             throw new UnprocessableEntityHttpException($e->getMessage());
         }
@@ -100,11 +110,11 @@ class ClientRepository extends BaseRepository
         try {
             DB::beginTransaction();
             $user = $client->user;
-            if (isset($input['password']) && ! empty($input['password'])) {
-                $input['password'] = Hash::make($input['password']);
-            } else {
-                $input['password'] = $client->user->password;
-            }
+            // if (isset($input['password']) && ! empty($input['password'])) {
+            //     $input['password'] = Hash::make($input['password']);
+            // } else {
+            //     $input['password'] = $client->user->password;
+            // }
 
             $user->update($input);
             $client->update($input);

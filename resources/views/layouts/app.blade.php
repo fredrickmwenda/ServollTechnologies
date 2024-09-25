@@ -105,10 +105,8 @@
 
     <div class="container-fluid">
         <div class="main-content d-flex flex-column">
-            <!-- Start Header Area -->
-            <!-- @include('layouts.header') -->
-
-            <!-- End Header Area -->
+           
+          @include('layouts.header')      
 
             <div class="main-content-container overflow-hidden">
                 @yield('content')
@@ -116,10 +114,8 @@
 
             <div class="flex-grow-1"></div>
 
-            <!-- Start Footer Area -->
             @include('layouts.footer')
-
-            <!-- End Footer Area -->
+           
         </div>
     </div> 
 

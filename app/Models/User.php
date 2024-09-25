@@ -127,7 +127,7 @@ class User extends Authenticatable implements HasMedia
         'language',
         'dark_mode',
         'is_default_admin',
-    ];
+    ]; 
 
     protected $appends = ['full_name', 'profile_image'];
 

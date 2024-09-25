@@ -35,6 +35,7 @@ class ClientController extends AppBaseController
      */
     public function index(Request $request): \Illuminate\View\View
     {
+        
         return view('clients.index');
     }
 
@@ -51,7 +52,7 @@ class ClientController extends AppBaseController
     public function store(CreateClientRequest $request): RedirectResponse
     {
         $input = $request->all();
-        // dd($input);
+        info($input);
         try {
             $this->clientRepository->store($input);
             Flash::success(__('messages.flash.client_created_successfully'));
@@ -69,7 +70,8 @@ class ClientController extends AppBaseController
      */
     public function show(Client $client, Request $request): \Illuminate\View\View
     {
-        $client->load('user.media', 'invoices.payments');
+        $client->load('client.media', 'invoices.payments');
+        dd($client);
         $activeTab = $request->get('Active', 'overview');
 
         return view('clients.show', compact('client', 'activeTab'));

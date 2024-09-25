@@ -199,7 +199,7 @@
                                             <span class="ms-2">My Profile</span>
                                         </a>
                                     </li>
-                                    <!-- <li>
+                                    <li>
                                         <a class="dropdown-item d-flex align-items-center text-body" href="">
                                             <i class="material-symbols-outlined">chat</i>
                                             <span class="ms-2">Messages</span>
@@ -210,13 +210,13 @@
                                             <i class="material-symbols-outlined">format_list_bulleted </i>
                                             <span class="ms-2">My Task</span>
                                         </a>
-                                    </li> -->
-                                    <!-- <li>
+                                    </li>
+                                    <li>
                                         <a class="dropdown-item d-flex align-items-center text-body" href="my-profile.html">
                                             <i class="material-symbols-outlined">credit_card </i>
                                             <span class="ms-2">Billing</span>
                                         </a>
-                                    </li> -->
+                                    </li>
                                 </ul>
                                 <ul class="admin-link ps-0 mb-0 list-unstyled">
                                     <li>
@@ -257,4 +257,3 @@
         </div>
     </div>
 </header>
-<!-- End Header Area -->

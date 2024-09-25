@@ -2,19 +2,19 @@
     <div class="col-lg-6">
         <div class="mb-5">
             {{ Form::label('first_name', __('messages.client.first_name').':', ['class' => 'form-label required mb-3']) }}
-            {{ Form::text('first_name', $client->user->first_name ?? null, ['class' => 'form-control form-control-solid', 'placeholder' => __('messages.client.first_name'), 'required']) }}
+            {{ Form::text('first_name', $client->first_name ?? null, ['class' => 'form-control form-control-solid', 'placeholder' => __('messages.client.first_name'), 'required']) }}
         </div>
     </div>
     <div class="col-lg-6">
         <div class="mb-5">
             {{ Form::label('last_name', __('messages.client.last_name').':', ['class' => 'form-label required mb-3']) }}
-            {{ Form::text('last_name', $client->user->last_name ?? null, ['class' => 'form-control form-control-solid', 'placeholder' => __('messages.client.last_name'), 'required']) }}
+            {{ Form::text('last_name', $client->last_name ?? null, ['class' => 'form-control form-control-solid', 'placeholder' => __('messages.client.last_name'), 'required']) }}
         </div>
     </div>
     <div class="col-lg-6">
         <div class="mb-5">
             {{ Form::label('email', __('messages.client.email').':', ['class' => 'form-label required mb-3']) }}
-            {{ Form::email('email', $client->user->email ?? null, ['class' => 'form-control form-control-solid', 'placeholder' => __('messages.client.email'), 'required']) }}
+            {{ Form::email('email', $client->email ?? null, ['class' => 'form-control form-control-solid', 'placeholder' => __('messages.client.email'), 'required']) }}
         </div>
     </div>
     <div class="col-lg-6">
@@ -26,38 +26,7 @@
             <span id="error-msg" class="hide text-danger fw-400 fs-small mt-2"></span>
         </div>
     </div>
-    <div class="col-lg-6 mb-5">
-        <div class="fv-row">
-            <div>
-                {{ Form::label('password', __('messages.client.password').':' ,['class' => 'form-label mb-3']) }}
-                <div class="position-relative">
-                    <input class="form-control"
-                           type="password" placeholder="{{ __('messages.client.password')}}" name="password"
-                           autocomplete="off"
-                           aria-label="password" data-toggle="password">
-                    <span class="position-absolute d-flex align-items-center top-0 bottom-0 end-0 me-4 input-icon input-password-hide cursor-pointer text-gray-600">
-                              <i class="bi bi-eye-slash-fill"></i>
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-6 mb-5">
-        <div class="fv-row">
-            <div>
-                {{ Form::label('confirmPassword',__('messages.client.confirm_password').':' ,['class' => 'form-label mb-3']) }}
-                <div class="position-relative">
-                    <input class="form-control"
-                           type="password" placeholder="{{ __('messages.client.confirm_password')}}"
-                           name="password_confirmation"
-                           autocomplete="off" aria-label="Password" data-toggle="password">
-                    <span class="position-absolute d-flex align-items-center top-0 bottom-0 end-0 me-4 input-icon input-password-hide cursor-pointer text-gray-600">
-                               <i class="bi bi-eye-slash-fill"></i>
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
+ 
     <div class="col-lg-6">
         <div class="mb-5">
             {{ Form::label('website', __('messages.client.website').':', ['class' => 'form-label mb-3']) }}

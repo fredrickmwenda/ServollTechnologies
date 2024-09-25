@@ -29,8 +29,8 @@ class CreateClientRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'password_confirmation.required' => 'The confirm password field is required.',
-            'password.same' => 'The password and confirm password must match',
+            // 'password_confirmation.required' => 'The confirm password field is required.',
+            // 'password.same' => 'The password and confirm password must match',
         ];
     }
 }

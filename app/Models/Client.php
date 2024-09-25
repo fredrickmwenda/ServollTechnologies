@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
  * App\Models\Client
@@ -40,14 +42,20 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @mixin \Eloquent
  */
-class Client extends Model
+class Client extends Model  implements HasMedia
 {
+
+    use InteractsWithMedia;
     use HasFactory;
 
     protected $table = 'clients';
 
+    const ACCOUNT = 'profile';
+
     public $fillable = [
-        'user_id',
+        'first_name',
+        'last_name',
+        //'user_id',
         'website',
         'company',
         'postal_code',
@@ -56,9 +64,13 @@ class Client extends Model
         'country_id',
         'state_id',
         'city_id',
+        'email',
     ];
 
     protected $casts = [
+        'first_name' => 'string',
+        'last_name' => 'string',
+        'email' => 'string',
         'website' => 'string',
         'company' =>  'string',
         'postal_code' => 'string',
@@ -67,7 +79,7 @@ class Client extends Model
         'country_id' => 'integer',
         'state_id' => 'integer',
         'city_id' => 'integer',
-        'user_id' => 'integer',
+       // 'user_id' => 'integer',
     ];
 
     /**
@@ -79,12 +91,23 @@ class Client extends Model
         'first_name' => 'required',
         'last_name' => 'required',
         'company' => 'required',
-        'email' => 'required|email:filter|unique:users,email',
-        'password' => 'required|same:password_confirmation|min:6',
+        'email' => 'required|email:filter|unique:clients,email',
+        // 'password' => 'required|same:password_confirmation|min:6',
         'postal_code' => 'string',
         'address' => 'nullable||string',
         'website' => 'nullable|url',
     ];
+
+    public function getAccountImageAttribute(): string
+    {
+        /** @var Media $media */
+        $media = $this->getMedia(self::ACCOUNT)->first();
+        if (! empty($media)) {
+            return $media->getFullUrl();
+        }
+
+        return asset('assets/images/avatar.png');
+    }
 
     public function user(): BelongsTo
     {
