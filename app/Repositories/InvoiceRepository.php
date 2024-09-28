@@ -239,9 +239,9 @@ class InvoiceRepository extends BaseRepository
 
             if ($invoice->status != Invoice::DRAFT) {
                 $input['invoiceData'] = $invoice;
-                $input['clientData'] = $invoice->client->user->toArray();
+                $input['clientData'] = $invoice->client->toArray();
                 if (getSettingValue('mail_notification')) {
-                    Mail::to($invoice->client->user->email)->send(new InvoiceCreateClientMail($input));
+                    Mail::to($invoice->client->email)->send(new InvoiceCreateClientMail($input));
                 }
             }
 
@@ -481,9 +481,9 @@ class InvoiceRepository extends BaseRepository
             $title,
         ]);
         $input['invoiceData'] = $invoice->toArray();
-        $input['clientData'] = $invoice->client->user->toArray();
+        $input['clientData'] = $invoice->client->toArray();
         if (getSettingValue('mail_notification')) {
-            Mail::to($invoice->client->user->email)->send(new InvoiceCreateClientMail($input));
+            Mail::to($invoice->client->email)->send(new InvoiceCreateClientMail($input));
         }
 
         return $invoice;

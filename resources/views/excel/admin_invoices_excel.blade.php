@@ -27,8 +27,8 @@
     @foreach($invoices as $invoice)
         <tr>
             <td>{{ $invoice->invoice_id }}</td>
-            <td>{{ $invoice->client->user->FullName }}</td>
-            <td>{{ $invoice->client->user->email }}</td>
+            <td>{{ $invoice->client->FullName }}</td>
+            <td>{{ $invoice->client->email }}</td>
             <td>{{ \Carbon\Carbon::parse($invoice->invoice_date)->translatedFormat(currentDateFormat()) }}</td>
             <td>{{ $invoice->final_amount }}</td>
             <td>{{ (getInvoicePaidAmount($invoice->id) != 0) ? getInvoicePaidAmount($invoice->id) : 0 }}</td>

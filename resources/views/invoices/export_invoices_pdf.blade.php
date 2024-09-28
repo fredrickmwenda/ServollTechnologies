@@ -41,7 +41,7 @@
         @foreach($invoices as $invoice)
             <tr class="custom-font-size-pdf">
                 <td>{{ $invoice->invoice_id }}</td>
-                <td>{{ $invoice->client->user->FullName }}</td>
+                <td>{{ $invoice->client->FullName }}</td>
                 <td>{{ \Carbon\Carbon::parse($invoice->invoice_date)->translatedFormat(currentDateFormat()) }}</td>
                 <td class="right-align">{{ getInvoiceCurrencyAmount($invoice->final_amount, $invoice->currency_id, true) }}</td>
                 <td class="right-align">{{ (getInvoicePaidAmount($invoice->id) != 0) ? getInvoiceCurrencyAmount(getInvoicePaidAmount($invoice->id), $invoice->currency_id, true) : '0.00' }}</td>

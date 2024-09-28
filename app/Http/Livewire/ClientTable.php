@@ -47,7 +47,7 @@ class ClientTable extends LivewireTableComponent
     public function columns(): array
     {
         return [
-            Column::make(__('messages.client.client'), 'user.first_name')
+            Column::make(__('messages.client.client'), 'first_name')
                 ->searchable(function (Builder $query, $direction) {
                     $query->whereRaw("TRIM(CONCAT(first_name,' ',last_name,' ')) like '%{$direction}%'");
                 })
@@ -63,9 +63,10 @@ class ClientTable extends LivewireTableComponent
             Column::make(__('messages.common.action'), 'id')
                 ->format(function ($value, $row, Column $column) {
                     return view('livewire.action-button')->with([
+                        'showRoute' => route('clients.show', $row->id),  // Add the route for showing client details
                         'editRoute' => route('clients.edit', $row->id),
                         'dataId' => $row->id,
-                        'editClass' => 'user-edit-btn',
+                        'editClass' => 'client-edit-btn',
                         'deleteClass' => 'client-delete-btn',
                     ]);
                 }),
@@ -75,9 +76,16 @@ class ClientTable extends LivewireTableComponent
     public function builder(): Builder
     {
         $query = Client::with(['user.media'])->withCount('invoices');
-
+        
+        // Log the raw SQL query (with placeholders)
+        info($query->toSql());
+        
+        // Log the query bindings (actual values to be injected into the placeholders)
+        info($query->getBindings());
+    
         return $query;
     }
+    
 
     public function resetPageTable()
     {

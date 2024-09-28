@@ -191,7 +191,7 @@ class InvoiceController extends AppBaseController
     public function invoicePaymentReminder($invoiceId): mixed
     {
         $invoice = Invoice::with(['client.user', 'payments'])->whereId($invoiceId)->firstOrFail();
-        $paymentReminder = Mail::to($invoice->client->user->email)->send(new InvoicePaymentReminderMail($invoice));
+        $paymentReminder = Mail::to($invoice->client->email)->send(new InvoicePaymentReminderMail($invoice));
 
         return $this->sendResponse($paymentReminder,__('messages.flash.payment_reminder_mail_send_successfully'));
     }
@@ -211,7 +211,7 @@ class InvoiceController extends AppBaseController
         $invoiceData['paymentType'] = Payment::PAYMENT_TYPE;
         $invoiceData['paymentMode'] = $this->invoiceRepository->getPaymentGateways();
         $invoiceData['stripeKey'] = getSettingValue('stripe_key');
-        $invoiceData['userLang'] = $invoice->client->user->language;
+        // $invoiceData['userLang'] = $invoice->client->language;
 
         return view('invoices.public-invoice.public_view')->with($invoiceData);
     }

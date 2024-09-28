@@ -98,6 +98,15 @@ class Client extends Model  implements HasMedia
         'website' => 'nullable|url',
     ];
 
+     // If you want to include the accessor in array or JSON results
+     protected $appends = ['full_name'];
+
+     // Accessor for full_name
+     public function getFullNameAttribute()
+     {
+         return "{$this->first_name} {$this->last_name}";
+     }
+
     public function getAccountImageAttribute(): string
     {
         /** @var Media $media */

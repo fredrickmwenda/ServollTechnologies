@@ -67,7 +67,7 @@
                                         <div class="d-flex flex-column mb-md-10 mb-4">
                                             <label for="name"
                                                    class="pb-2 fs-4 text-gray-600">{{ __('messages.invoice.issue_for').':' }}</label>
-                                            <span class="fs-4 text-gray-800 mb-3">{{ $invoice->client->user->full_name }}</span>
+                                            <span class="fs-4 text-gray-800 mb-3">{{ $invoice->client->full_name }}</span>
                                             <p class="text-gray-700 fs-4 mb-0">
                                                 @if(isset($invoice->client->address) && !empty($invoice->client->address))
                                                     {{ ucfirst($invoice->client->address) }}
@@ -198,12 +198,12 @@
                                             <label for="name"
                                                    class="pb-2 fs-4 text-gray-600">{{ __('messages.invoice.client_name') }}</label>
                                             <a href="#"
-                                               class="link-primary fs-4 text-decoration-none">{{ $invoice->client->user->full_name }}</a>
+                                               class="link-primary fs-4 text-decoration-none">{{ $invoice->client->full_name }}</a>
                                         </div>
                                         <div class="col-xxl-12 col-lg-4 col-sm-6 d-flex flex-column mb-xxl-7 mb-lg-0 mb-4">
                                             <label for="name"
                                                    class="pb-2 fs-4 text-gray-600">{{ __('messages.invoice.client_email') }}</label>
-                                            <span class="fs-4 text-gray-900">{{ $invoice->client->user->email }}</span>
+                                            <span class="fs-4 text-gray-900">{{ $invoice->client->email }}</span>
                                         </div>
                                         <div class="col-xxl-12 col-lg-4 col-sm-6 d-flex flex-column mb-xxl-7">
                                             <label for="name"

@@ -78,10 +78,10 @@
                                                 <h3 class="fs-20 mt-1 mb-0">{{ formatTotalAmount($paid_invoices) }}</h3>
                                             </div>
                                         </div>
-                                        <div class="d-flex justify-content-between flex-wrap gap-2 align-items-center">
-                                            <span class="fs-12">Projects this month</span>
+                                        <!-- <div class="d-flex justify-content-between flex-wrap gap-2 align-items-center">
+                                            <span class="fs-12">Paid Invoices this month</span>
                                             <span class="count down fw-medium ms-0">-15%</span>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -91,37 +91,17 @@
                                     <div class="card-body p-4">
                                         <div class="d-flex align-items-center mb-19">
                                             <div class="flex-shrink-0">
-                                                <i class="material-symbols-outlined fs-40 text-success">assignment_turned_in</i>
-                                            </div>
-                                            <div class="flex-grow-1 ms-2">
-                                                <span>Unpaid Invoices</span>
-                                                <h3 class="fs-20 mt-1 mb-0">{{ formatTotalAmount($unpaid_invoices) }}</h3>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex justify-content-between flex-wrap gap-2 align-items-center">
-                                            <span class="fs-12">Projects this month</span>
-                                            <span class="count down fw-medium ms-0">-15%</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xxl-3 col-xl-3 col-sm-6">
-                                <div class="card bg-success bg-opacity-10 border-success border-opacity-10 rounded-3 mb-4 stats-box style-three">
-                                    <div class="card-body p-4">
-                                        <div class="d-flex align-items-center mb-19">
-                                            <div class="flex-shrink-0">
-                                                <i class="material-symbols-outlined fs-40 text-success">assignment_turned_in</i>
+                                                <i class="material-symbols-outlined fs-40 text-info">assignment_returned</i>
                                             </div>
                                             <div class="flex-grow-1 ms-2">
                                                 <span>Partial Invoices</span>
                                                 <h3 class="fs-20 mt-1 mb-0">{{ formatTotalAmount($partially_paid) }}</h3>
                                             </div>
                                         </div>
-                                        <div class="d-flex justify-content-between flex-wrap gap-2 align-items-center">
+                                        <!-- <div class="d-flex justify-content-between flex-wrap gap-2 align-items-center">
                                             <span class="fs-12">Projects this month</span>
                                             <span class="count down fw-medium ms-0">-15%</span>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -131,17 +111,39 @@
                                     <div class="card-body p-4">
                                         <div class="d-flex align-items-center mb-19">
                                             <div class="flex-shrink-0">
-                                                <i class="material-symbols-outlined fs-40 text-success">assignment_turned_in</i>
+                                                <i class="material-symbols-outlined fs-40 text-warning">assignment_return</i>
+                                            </div>
+                                            <div class="flex-grow-1 ms-2">
+                                                <span>Unpaid Invoices</span>
+                                                <h3 class="fs-20 mt-1 mb-0">{{ formatTotalAmount($unpaid_invoices) }}</h3>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="d-flex justify-content-between flex-wrap gap-1 align-items-center">
+                                            <span class="fs-12"> month</span>
+                                            <span class="count down fw-medium ms-0">-15%</span>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+
+                            <div class="col-xxl-3 col-xl-3 col-sm-6">
+                                <div class="card bg-success bg-opacity-10 border-success border-opacity-10 rounded-3 mb-4 stats-box style-three">
+                                    <div class="card-body p-4">
+                                        <div class="d-flex align-items-center mb-19">
+                                            <div class="flex-shrink-0">
+                                                <i class="material-symbols-outlined fs-40 text-danger">assignment_late</i>
                                             </div>
                                             <div class="flex-grow-1 ms-2">
                                                 <span>Overdue Invoices</span>
                                                 <h3 class="fs-20 mt-1 mb-0">{{ formatTotalAmount($overdue_invoices) }}</h3>
                                             </div>
                                         </div>
-                                        <div class="d-flex justify-content-between flex-wrap gap-2 align-items-center">
+                                        <!-- <div class="d-flex justify-content-between flex-wrap gap-2 align-items-center">
                                             <span class="fs-12">Projects this month</span>
                                             <span class="count down fw-medium ms-0">-15%</span>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>

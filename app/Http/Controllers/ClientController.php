@@ -14,6 +14,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Env;
 use Laracasts\Flash\Flash;
 
 class ClientController extends AppBaseController
@@ -35,7 +36,7 @@ class ClientController extends AppBaseController
      */
     public function index(Request $request): \Illuminate\View\View
     {
-        
+
         return view('clients.index');
     }
 
@@ -70,11 +71,21 @@ class ClientController extends AppBaseController
      */
     public function show(Client $client, Request $request): \Illuminate\View\View
     {
-        $client->load('client.media', 'invoices.payments');
-        dd($client);
+        $client->load('invoices.payments');
+        // Get the profile picture URL
+        $profilePicture = $client->account_image; // This will call the getAccountImageAttribute method
+
+        //dd($profilePicture);
+
+        // Check if the environment is local and replace localhost with 127.0.0.1:8000 if needed
+        if (app()->environment('local') && strpos($profilePicture, 'localhost') !== false) {
+            $profilePicture = str_replace('localhost', '127.0.0.1:8000', $profilePicture);
+        }
+
+       
         $activeTab = $request->get('Active', 'overview');
 
-        return view('clients.show', compact('client', 'activeTab'));
+        return view('clients.show', compact('client', 'activeTab', 'profilePicture'));
     }
 
     /**
@@ -107,9 +118,9 @@ class ClientController extends AppBaseController
 
     public function destroy(Client $client): JsonResponse
     {
-        $invoiceModels = [ 
+        $invoiceModels = [
             Invoice::class,
-        ]; 
+        ];
         $result = canDelete($invoiceModels, 'client_id', $client->id);
         if ($result) {
             return $this->sendError(__('messages.flash.client_cant_deleted'));
@@ -125,7 +136,7 @@ class ClientController extends AppBaseController
         $countryId = $request->get('countryId');
         $states = getStates($countryId);
 
-        return $this->sendResponse($states,__('messages.flash.status_retrieved_successfully'));
+        return $this->sendResponse($states, __('messages.flash.status_retrieved_successfully'));
     }
 
     /**

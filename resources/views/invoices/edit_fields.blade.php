@@ -6,7 +6,7 @@
         @else
             {{ Form::label('client_id', __('messages.invoice.client') . ':', ['class' => 'form-label mb-3']) }}
             <br>
-            <span class="text-muted h3">{{ $invoice->client->user->full_name }}</span>
+            <span class="text-muted h3">{{ $invoice->client->full_name }}</span>
             <input type="hidden" value="{{ $invoice->client->user_id }}" name="client_id">
         @endif
     </div>

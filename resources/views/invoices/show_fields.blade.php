@@ -97,7 +97,7 @@
                                             <label for="name"
                                                 class="pb-2 fs-4 text-gray-600">{{ __('messages.invoice.issue_for') . ':' }}</label>
                                             <span
-                                                class="fs-4 text-gray-800 mb-3">{{ $invoice->client->user->full_name }}</span>
+                                                class="fs-4 text-gray-800 mb-3">{{ $invoice->client->full_name }}</span>
                                             <p class="text-gray-700 fs-4 mb-0">
                                                 @if (isset($invoice->client->address) && !empty($invoice->client->address))
                                                     {{ ucfirst($invoice->client->address) }}
@@ -273,10 +273,10 @@
                                                 class="pb-2 fs-4 text-gray-600">{{ __('messages.invoice.client_name') }}</label>
                                             @if ($auth)
                                                 <a href="{{ route('clients.show', ['client' => $invoice->client->id]) }}"
-                                                    class="link-primary text-decoration-none">{{ $invoice->client->user->full_name }}</a>
+                                                    class="link-primary text-decoration-none">{{ $invoice->client->full_name }}</a>
                                             @else
                                                 <a href="#"
-                                                    class="link-primary fs-4 text-decoration-none">{{ $invoice->client->user->full_name }}</a>
+                                                    class="link-primary fs-4 text-decoration-none">{{ $invoice->client->full_name }}</a>
                                             @endif
                                         </div>
                                         <div
@@ -284,7 +284,7 @@
                                             <label for="name"
                                                 class="pb-2 fs-4 text-gray-600">{{ __('messages.invoice.client_email') }}</label>
                                             <span
-                                                class="fs-4 text-gray-900">{{ $invoice->client->user->email }}</span>
+                                                class="fs-4 text-gray-900">{{ $invoice->client->email }}</span>
                                         </div>
                                         <div class="col-xxl-12 col-lg-4 col-sm-6 d-flex flex-column mb-xxl-7">
                                             <label for="name"

@@ -103,7 +103,7 @@ class RazorpayController extends AppBaseController
                 $transaction = [
                     'transaction_id' => $payment->id,
                     'amount' => $paymentAmount,
-                    'user_id' => $invoice->client->user->id,
+                    'user_id' => $invoice->client->id,
                     'status' => 'paid',
                     'meta' => $payment->toArray(),
                 ];
