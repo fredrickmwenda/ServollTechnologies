@@ -162,30 +162,52 @@ function preparePaymentViewStatusChart(result){
     });
 }
 
-function prepareInvoiceViewStatusChart(result){
+function prepareInvoiceViewStatusChart(result) {
     $('#invoice-overview-container').html('');
     let data = result.data;
     console.log(data);
-    if (data.total_paid_invoices === 0 && data.total_unpaid_invoices === 0) {
+
+    // Create an array to hold colors for the chart
+    let colors = ['#1100ff', '#ff0000', '#0DCAF0', '#AD63F6'];
+
+    // Filter data to exclude categories with 0 or less invoices
+    let filteredData = [];
+    let filteredLabels = [];
+    let filteredColors = [];
+
+    data.labels.forEach(function(label, index) {
+        let value = data.dataPoints[index];
+        // Only include values strictly greater than 0
+        if (value > 0) {
+            filteredData.push(value);           // Add non-zero data points
+            filteredLabels.push(label);         // Add corresponding labels
+            filteredColors.push(colors[index]); // Add corresponding colors
+        }
+    });
+
+    // Check if there are any valid data points remaining
+    if (filteredData.length === 0) {
         $('#invoice-overview-container').empty();
-        $('#invoice-overview-container').
-        append('<div align="center" class="no-record">' +
+        $('#invoice-overview-container').append('<div align="center" class="no-record">' +
             Lang.get('messages.admin_dashboard.no_record_found') +
             '</div>');
         return true;
     } else {
         $('#invoice-overview-container').html('');
-        $('#invoice-overview-container').
-        append('<canvas id="invoice_overview"></canvas>');
+        $('#invoice-overview-container').append('<canvas id="invoice_overview"></canvas>');
     }
+
     let ctx = document.getElementById('invoice_overview').getContext('2d');
+
+    // Prepare the chart data using filtered results
     let pieChartData = {
-        labels: data.labels,
+        labels: filteredLabels,
         datasets: [
             {
-                data: data.dataPoints,
-                backgroundColor: ['#1100ff', '#ff0000', '#0DCAF0', '#AD63F6'],
-            }],
+                data: filteredData,
+                backgroundColor: filteredColors,  // Apply filtered colors
+            }
+        ]
     };
 
     window.myBar = new Chart(ctx, {
@@ -201,7 +223,7 @@ function prepareInvoiceViewStatusChart(result){
                 tooltip: {
                     callbacks: {
                         label: function (context) {
-                            return ' '+context.formattedValue;
+                            return ' ' + context.formattedValue;
                         },
                     },
                 },
@@ -209,6 +231,8 @@ function prepareInvoiceViewStatusChart(result){
         },
     });
 }
+
+
 
 function prepareYearlyIncomeViewChart(result){
     $('#yearly_income_overview-container').html('');

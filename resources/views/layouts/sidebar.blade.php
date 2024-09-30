@@ -1,7 +1,7 @@
 
 <div class="sidebar-area" id="sidebar-area">
     <div class="logo position-relative">
-        <a href="{{ url('/') }}" class="d-block text-decoration-none position-relative">
+        <a href="{{ route('admin.dashboard') }}" class="d-block text-decoration-none position-relative">
             <img src="{{ getLogoUrl() }}" alt="logo-icon">
            
         </a>
@@ -13,7 +13,7 @@
     <aside id="layout-menu" class="layout-menu menu-vertical menu active" data-simplebar>
         <ul class="menu-inner">
             <li class="menu-item">
-                <a href="{{ url('/')}}" class="menu-link">
+                <a href="{{ route('admin.dashboard') }}" class="menu-link">
                     <span class="material-symbols-outlined menu-icon">deployed_code</span>
                     <span class="title">Dashboard</span>
                 </a>

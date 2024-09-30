@@ -75,7 +75,7 @@
             <div class="d-block">
                 <div class="image-picker">
                     <div class="image previewImage" id="previewImage"
-                    {{ $styleCss  }}="background-image: url({{ !empty($client->user->profile_image) ? $client->user->profile_image : asset('web/media/avatars/150-26.jpg') }}
+                    {{ $styleCss  }}="background-image: url({{ !empty($client->profile_image) ? $client->profile_image : asset('web/media/avatars/150-26.jpg') }}
                     )">
                 </div>
                 <span class="picker-edit rounded-circle text-gray-500 fs-small" data-bs-toggle="tooltip"

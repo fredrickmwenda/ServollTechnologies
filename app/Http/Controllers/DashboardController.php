@@ -45,6 +45,7 @@ class DashboardController extends AppBaseController
     public function invoiceOverview(): mixed
     {
         $data = $this->dashboardRepository->getInvoiceOverviewData();
+       // info($data);
 
         return $this->sendResponse($data,__('messages.flash.payment_overview_status_retrieved_successfully'));
     }

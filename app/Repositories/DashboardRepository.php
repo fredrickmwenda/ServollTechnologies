@@ -159,17 +159,33 @@ class DashboardRepository
         $data['total_unpaid_invoices'] = $invoice->where('status', Invoice::UNPAID)->count();
         $data['total_partial_invoices'] = $invoice->where('status', Invoice::PARTIALLY)->count();
         $data['total_overdue_invoices'] = $invoice->where('status', Invoice::OVERDUE)->count();
-
-        $data['labels'] = [
+    
+        $labels = [
             __('messages.paid_invoices'),
             __('messages.unpaid_invoices'),
-            __('messages.overdue_invoices'),
-            __('messages.partial_invoices'),
+            'Overdue Invoices',
+            'Partial Invoices',
         ];
-        $data['dataPoints'] = [$data['total_paid_invoices'], $data['total_unpaid_invoices'], $data['total_partial_invoices'], $data['total_overdue_invoices']];
-        info($data);
-        return $data;
+    
+        $dataPoints = [
+            $data['total_paid_invoices'],
+            $data['total_unpaid_invoices'],
+            $data['total_partial_invoices'],
+            $data['total_overdue_invoices'],
+        ];
+    
+        // Filter out 0 values along with corresponding labels
+        $filteredData = [];
+        foreach ($dataPoints as $key => $value) {
+            if ($value > 0) {
+                $filteredData['labels'][] = $labels[$key];
+                $filteredData['dataPoints'][] = $value;
+            }
+        }
+    
+        return $filteredData;
     }
+    
 
     public function prepareYearlyIncomeChartData($input): array
     {

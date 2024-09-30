@@ -75,6 +75,8 @@ class ClientController extends AppBaseController
         // Get the profile picture URL
         $profilePicture = $client->account_image; // This will call the getAccountImageAttribute method
 
+        $countries = $this->clientRepository->getData();
+
         //dd($profilePicture);
 
         // Check if the environment is local and replace localhost with 127.0.0.1:8000 if needed
@@ -85,7 +87,7 @@ class ClientController extends AppBaseController
        
         $activeTab = $request->get('Active', 'overview');
 
-        return view('clients.show', compact('client', 'activeTab', 'profilePicture'));
+        return view('clients.show', compact('client', 'activeTab', 'profilePicture', 'countries'));
     }
 
     /**
