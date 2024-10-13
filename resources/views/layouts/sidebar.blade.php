@@ -236,64 +236,14 @@
             </li>
 
             <li class="menu-item">
-                <a href="javascript:void(0);" class="menu-link menu-toggle active">
+                <a href="{{ route('settings.edit') }}" class="menu-link">
                     <span class="material-symbols-outlined menu-icon">settings</span>
                     <span class="title">Settings</span>
                 </a>
-                <ul class="menu-sub">
-                    <li class="menu-item">
-                        <a href="account-settings.html" class="menu-link">
-                            Account Settings
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="change-password.html" class="menu-link">
-                            Change Password
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="connections.html" class="menu-link">
-                            Connections
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="connections.html" class="menu-link">
-                            Connections
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="privacy-policy.html" class="menu-link">
-                            Privacy Policy
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="terms-conditions.html" class="menu-link">
-                            Terms & Conditions
-                        </a>
-                    </li>
-                </ul>
+
             </li>
 
-            <li class="menu-item">
-                <a href="javascript:void(0);" class="menu-link menu-toggle active">
-                    <span class="material-symbols-outlined menu-icon">keyboard_arrow_down</span>
-                    <span class="title">Multi Level Menu</span>
-                </a>
-                <ul class="menu-sub">
-                    <li class="menu-item after-sub-menu">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <span class="title">Level One</span>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="carousels.html#" class="menu-link">
-                                    Level Three
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
+   
 
             <li class="menu-item">
                 <a href="logout.html" class="menu-link">

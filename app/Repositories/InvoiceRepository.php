@@ -97,7 +97,7 @@ class InvoiceRepository extends BaseRepository
             $data['products'] = $data['products'] + $data['productItem'];
         }
         $data['associateProducts'] = $this->getAssociateProductList($invoice);
-        $data['clients'] = User::whereHas('client')->get()->pluck('full_name', 'id')->toArray();
+        $data['clients'] = Client::get()->pluck('full_name', 'id')->toArray();
         $data['discount_type'] = Invoice::DISCOUNT_TYPE;
         $invoiceStatusArr = Invoice::STATUS_ARR;
         unset($invoiceStatusArr[Invoice::STATUS_ALL]);

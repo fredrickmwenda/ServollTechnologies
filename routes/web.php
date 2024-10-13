@@ -42,7 +42,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::middleware(['xss'])->group(function () {
     Route::get('/', function () {
@@ -57,7 +57,6 @@ Route::middleware(['xss'])->group(function () {
 
         // return redirect(route('login'));
         return redirect(route('index'));
-
     });
 
     Route::get('/', [FrontController::class, 'index'])->name('index');
@@ -84,16 +83,16 @@ Route::middleware(['xss'])->group(function () {
     Route::post('/send-contact-form', [ClientContactController::class, 'store'])->name('send.contact');
     Route::post('update-language', [UserController::class, 'updateLanguage'])->name('change-language');
     //Notification routes
-    Route::get('/notification/{notification}/read',[NotificationController::class, 'readNotification'])->name('read.notification');
-    Route::post('/read-all-notification',[NotificationController::class, 'readAllNotification'])->name('read.all.notification');
+    Route::get('/notification/{notification}/read', [NotificationController::class, 'readNotification'])->name('read.notification');
+    Route::post('/read-all-notification', [NotificationController::class, 'readAllNotification'])->name('read.all.notification');
     //update darkMode Field
     Route::get('update-dark-mode', [UserController::class, 'updateDarkMode'])->name('update-dark-mode');
 
     Route::get('invoice/{invoiceId}', [InvoiceController::class, 'showPublicInvoice'])->name('invoice-show-url');
     Route::get('quote/{quoteId}', [QuoteController::class, 'showPublicQuote'])->name('quote-show-url');
-    Route::get('invoice/{invoiceId}/payment',[InvoiceController::class, 'showPublicPayment'])->name('invoices.public-payment');
-    Route::get('invoice-pdf/{invoice}',[InvoiceController::class, 'getPublicInvoicePdf'])->name('public-view-invoice.pdf');
-    Route::get('quote-pdf/{quote}',[QuoteController::class, 'getPublicQuotePdf'])->name('public-view-quote.pdf');
+    Route::get('invoice/{invoiceId}/payment', [InvoiceController::class, 'showPublicPayment'])->name('invoices.public-payment');
+    Route::get('invoice-pdf/{invoice}', [InvoiceController::class, 'getPublicInvoicePdf'])->name('public-view-invoice.pdf');
+    Route::get('quote-pdf/{quote}', [QuoteController::class, 'getPublicQuotePdf'])->name('public-view-quote.pdf');
 });
 
 Route::prefix('admin')->middleware(['auth', 'xss', 'role:admin'])->group(function () {
@@ -180,8 +179,8 @@ Route::prefix('admin')->middleware(['auth', 'xss', 'role:admin'])->group(functio
             [InvoiceController::class, 'updateRecurring']
         )->name('update-recurring');
     });
-    Route::post('change-invoice-status/{invoice}/{status}',[InvoiceController::class, 'updateInvoiceStatus'])->name('send-invoice');
-    Route::post('invoice-payment-reminder/{invoiceId}',[InvoiceController::class, 'invoicePaymentReminder'])->name('invoice.payment-reminder');
+    Route::post('change-invoice-status/{invoice}/{status}', [InvoiceController::class, 'updateInvoiceStatus'])->name('send-invoice');
+    Route::post('invoice-payment-reminder/{invoiceId}', [InvoiceController::class, 'invoicePaymentReminder'])->name('invoice.payment-reminder');
 
     //Quote
     Route::resource('quotes', QuoteController::class);
@@ -202,19 +201,16 @@ Route::prefix('admin')->middleware(['auth', 'xss', 'role:admin'])->group(functio
     Route::get('transactions', [PaymentController::class, 'index'])->name('transactions.index');
 
     Route::resource('payments', AdminPaymentController::class);
-    Route::get('get-current-date-format',[AdminPaymentController::class, 'getCurrentDateFormat'])->name('get-current-date-format');
+    Route::get('get-current-date-format', [AdminPaymentController::class, 'getCurrentDateFormat'])->name('get-current-date-format');
 
     // payment approved
-    Route::get('change-transaction-status/{id}',[PaymentController::class, 'changeTransactionStatus'])->name('change-transaction-status');
+    Route::get('change-transaction-status/{id}', [PaymentController::class, 'changeTransactionStatus'])->name('change-transaction-status');
 
     //Setting Route
     Route::get('settings', [SettingController::class, 'edit'])->name('settings.edit');
     Route::post('settings', [SettingController::class, 'update'])->name('settings.update');
     Route::post('invoice-settings', [SettingController::class, 'invoiceUpdate'])->name('invoice-settings.settings');
-    Route::get(
-        'invoice-template/{key}',
-        [SettingController::class, 'editInvoiceTemplate']
-    )->name('invoice-template.edit');
+    Route::get('invoice-template/{key}',[SettingController::class, 'editInvoiceTemplate'])->name('invoice-template.edit');
     Route::post('payment-gateway/store', [PaymentGatewayController::class, 'store'])->name('payment-gateway.store');
     Route::get('payment-gateway', [PaymentGatewayController::class, 'show'])->name('payment-gateway.show');
     //invoice template
@@ -274,80 +270,80 @@ Route::prefix('admin')->middleware(['auth', 'xss', 'role:admin'])->group(functio
     Route::get('currency-reports', [DashboardController::class, 'currencyReports'])->name('currency.reports');
 });
 
-Route::prefix('client')->middleware(['auth', 'xss', 'role:client'])->group(function () {
-    Route::get(
-        'dashboard',
-        [Client\DashboardController::class, 'index']
-    )->name('client.dashboard');
+// Route::prefix('client')->middleware(['auth', 'xss', 'role:client'])->group(function () {
+//     Route::get(
+//         'dashboard',
+//         [Client\DashboardController::class, 'index']
+//     )->name('client.dashboard');
 
-    Route::get('transactions', [Client\PaymentController::class, 'index'])->name('client.transactions.index');
+//     Route::get('transactions', [Client\PaymentController::class, 'index'])->name('client.transactions.index');
 
-    //Invoice
-    Route::get(
-        'invoices',
-        [Client\InvoiceController::class, 'index']
-    )->name('client.invoices.index');
-    Route::get(
-        'invoices/{invoice}',
-        [Client\InvoiceController::class, 'show']
-    )->name('client.invoices.show');
-    Route::get(
-        'invoices/{invoice}/pdf',
-        [Client\InvoiceController::class, 'convertToPdf']
-    )->name('clients.invoices.pdf');
+//     //Invoice
+//     Route::get(
+//         'invoices',
+//         [Client\InvoiceController::class, 'index']
+//     )->name('client.invoices.index');
+//     Route::get(
+//         'invoices/{invoice}',
+//         [Client\InvoiceController::class, 'show']
+//     )->name('client.invoices.show');
+//     Route::get(
+//         'invoices/{invoice}/pdf',
+//         [Client\InvoiceController::class, 'convertToPdf']
+//     )->name('clients.invoices.pdf');
 
-    //Quote
-    Route::name('client.')->group(function () {
-        Route::resource('quotes', Client\QuoteController::class);
-    });
-    Route::get(
-        'quotes/{quote}/pdf',
-        [Client\QuoteController::class, 'convertToPdf']
-    )->name('client.quotes.pdf');
+//     //Quote
+//     Route::name('client.')->group(function () {
+//         Route::resource('quotes', Client\QuoteController::class);
+//     });
+//     Route::get(
+//         'quotes/{quote}/pdf',
+//         [Client\QuoteController::class, 'convertToPdf']
+//     )->name('client.quotes.pdf');
 
-    Route::get(
-        'quotes/{quote}/print',
-        [Client\QuoteController::class, 'printQuote']
-    )->name('client.quotes.print');
+//     Route::get(
+//         'quotes/{quote}/print',
+//         [Client\QuoteController::class, 'printQuote']
+//     )->name('client.quotes.print');
 
 
-    //export quotes Excel file in client route
-    Route::get('/quotes-excel', [Client\QuoteController::class, 'exportQuotesExcel'])->name('client.quotesExcel');
-    // export quotes Pdf in client route
-    Route::get('quotes-pdf', [Client\QuoteController::class, 'exportQuotesPdf'])->name('client.export.quotes.pdf');
-    // export invoices Pdf in client route
-    Route::get('/invoice-excel', [client\InvoiceController::class, 'exportInvoicesExcel'])->name('client.invoicesExcel');
-    Route::get('invoice-pdf', [client\InvoiceController::class, 'exportInvoicesPdf'])->name('client.invoices.pdf');
-    Route::get('transactions-excel', [client\PaymentController::class, 'exportTransactionsExcel'])->name('client.transactionsExcel');
-    // export transactions Pdf in client route
-    Route::get('transactions-pdf', [client\PaymentController::class, 'exportTransactionsPdf'])->name('client.export.transactions.pdf');
+//     //export quotes Excel file in client route
+//     Route::get('/quotes-excel', [Client\QuoteController::class, 'exportQuotesExcel'])->name('client.quotesExcel');
+//     // export quotes Pdf in client route
+//     Route::get('quotes-pdf', [Client\QuoteController::class, 'exportQuotesPdf'])->name('client.export.quotes.pdf');
+//     // export invoices Pdf in client route
+//     Route::get('/invoice-excel', [client\InvoiceController::class, 'exportInvoicesExcel'])->name('client.invoicesExcel');
+//     Route::get('invoice-pdf', [client\InvoiceController::class, 'exportInvoicesPdf'])->name('client.invoices.pdf');
+//     Route::get('transactions-excel', [client\PaymentController::class, 'exportTransactionsExcel'])->name('client.transactionsExcel');
+//     // export transactions Pdf in client route
+//     Route::get('transactions-pdf', [client\PaymentController::class, 'exportTransactionsPdf'])->name('client.export.transactions.pdf');
 
-    // currency reports for invoices route
-    Route::get('currency-reports', [DashboardController::class, 'currencyReports'])->name('client.currency.reports');
-});
+//     // currency reports for invoices route
+//     Route::get('currency-reports', [DashboardController::class, 'currencyReports'])->name('client.currency.reports');
+// });
 
-Route::prefix('client')->middleware('xss')->group(function () {
-    Route::get('invoices/{invoice}/payment', [Client\PaymentController::class, 'show'])->name('clients.payments.show');
-    //Payments
-    Route::post('payments', [Client\PaymentController::class, 'store'])->name('clients.payments.store');
-    Route::post('stripe-payment', [Client\StripeController::class, 'createSession'])->name('client.stripe-payment');
-    Route::get('razorpay-onboard', [Client\RazorpayController::class, 'onBoard'])->name('razorpay.init');
-    Route::get('paypal-onboard', [Client\PaypalController::class, 'onBoard'])->name('paypal.init');
+// Route::prefix('client')->middleware('xss')->group(function () {
+//     Route::get('invoices/{invoice}/payment', [Client\PaymentController::class, 'show'])->name('clients.payments.show');
+//     //Payments
+//     Route::post('payments', [Client\PaymentController::class, 'store'])->name('clients.payments.store');
+//     Route::post('stripe-payment', [Client\StripeController::class, 'createSession'])->name('client.stripe-payment');
+//     Route::get('razorpay-onboard', [Client\RazorpayController::class, 'onBoard'])->name('razorpay.init');
+//     Route::get('paypal-onboard', [Client\PaypalController::class, 'onBoard'])->name('paypal.init');
 
-    Route::get('payment-success', [Client\StripeController::class, 'paymentSuccess'])->name('payment-success');
-    Route::get('failed-payment', [Client\StripeController::class, 'handleFailedPayment'])->name('failed-payment');
+//     Route::get('payment-success', [Client\StripeController::class, 'paymentSuccess'])->name('payment-success');
+//     Route::get('failed-payment', [Client\StripeController::class, 'handleFailedPayment'])->name('failed-payment');
 
-    Route::get('paypal-payment-success', [Client\PaypalController::class, 'success'])->name('paypal.success');
-    Route::get('paypal-payment-failed', [Client\PaypalController::class, 'failed'])->name('paypal.failed');
+//     Route::get('paypal-payment-success', [Client\PaypalController::class, 'success'])->name('paypal.success');
+//     Route::get('paypal-payment-failed', [Client\PaypalController::class, 'failed'])->name('paypal.failed');
 
-    // razorpay payment
-    Route::post('razorpay-payment-success', [Client\RazorpayController::class, 'paymentSuccess'])
-        ->name('razorpay.success');
-    Route::post('razorpay-payment-failed', [Client\RazorpayController::class, 'paymentFailed'])
-        ->name('razorpay.failed')->middleware('');
-    Route::get('razorpay-payment-webhook', [Client\RazorpayController::class, 'paymentSuccessWebHook'])
-        ->name('razorpay.webhook');
-});
+//     // razorpay payment
+//     Route::post('razorpay-payment-success', [Client\RazorpayController::class, 'paymentSuccess'])
+//         ->name('razorpay.success');
+//     Route::post('razorpay-payment-failed', [Client\RazorpayController::class, 'paymentFailed'])
+//         ->name('razorpay.failed')->middleware('');
+//     Route::get('razorpay-payment-webhook', [Client\RazorpayController::class, 'paymentSuccessWebHook'])
+//         ->name('razorpay.webhook');
+// });
 
 
 Route::middleware(['auth', 'xss'])->group(function () {
@@ -365,7 +361,7 @@ Route::middleware(['auth', 'xss'])->group(function () {
 });
 
 Route::post('/subscribe', [SubscriberController::class, 'store'])->name('subscribe');
-Route::get('/subscribe/verify/{hash}', [SubscriberController::class,'verify'])->name('verify');
+Route::get('/subscribe/verify/{hash}', [SubscriberController::class, 'verify'])->name('verify');
 Route::post('/send-enquiry', [ClientContactController::class, 'store'])->name('enquire');
 
 
@@ -376,4 +372,4 @@ Route::get('/get-api-key', function () {
 });
 
 
-require __DIR__.'/upgrade.php';
+require __DIR__ . '/upgrade.php';

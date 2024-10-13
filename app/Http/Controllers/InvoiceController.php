@@ -57,6 +57,7 @@ class InvoiceController extends AppBaseController
     public function create(): View|Factory|Application
     {
         $data = $this->invoiceRepository->getSyncList();
+       // info($data);
         $data['currencies'] = getCurrencies();
         unset($data['statusArr'][0]);
         //dd($data);

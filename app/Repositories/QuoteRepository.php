@@ -77,7 +77,7 @@ class QuoteRepository extends BaseRepository
             $data['products'] = $data['products'] + $data['productItem'];
         }
         $data['associateProducts'] = $this->getAssociateProductList($quote);
-        $data['clients'] = User::whereHas('client')->get()->pluck('full_name', 'id')->toArray();
+        $data['clients'] = Client::get()->pluck('full_name', 'id')->toArray();
         $data['discount_type'] = Quote::DISCOUNT_TYPE;
         $quoteStatusArr = Arr::only(Quote::STATUS_ARR, Quote::DRAFT);
         $quoteRecurringArr = Quote::RECURRING_ARR;

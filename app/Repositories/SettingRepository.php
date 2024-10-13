@@ -84,7 +84,7 @@ class SettingRepository extends BaseRepository
                 'app_name', 'company_name', 'company_address', 'company_phone',
                 'date_format', 'time_format', 'time_zone', 'mail_notification', 'payment_auto_approved', 'country_code',
                 'show_product_description', 'city', 'state', 'country', 'zipcode', 'show_additional_address_in_invoice', 'fax_no',
-            ]);
+            ]);  //show he effort of the progrresss
         }
 
         foreach ($settingInputArray as $key => $value) {
