@@ -748,6 +748,7 @@ listenClick(".apply-dark-mode", function (e) {
     });
 });
 
+
 function tooltip() {
     let tooltipTriggerList = [].slice.call(
         document.querySelectorAll('[data-bs-toggle="tooltip"]')

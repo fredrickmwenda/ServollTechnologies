@@ -18,13 +18,13 @@ class DatabaseSeeder extends Seeder
         // $this->call(DefaultUserSeeder::class);
         // $this->call(DefaultCountriesSeeder::class);
         // $this->call(InvoiceSettingTableSeeder::class);
-        // $this->call(SettingsTableSeeder::class);
+        $this->call(SettingsTableSeeder::class);
         // $this->call(SettingTableSeederFields::class);
         // $this->call(DefaultCurrencySeeder::class);
         // $this->call(SettingFavIconFieldSeeder::class);
         // $this->call(PaymentFieldSeeder::class);
-        Client::factory()
-        ->count(10) // Create 10 clients
-        ->create();
+        // Client::factory()
+        // ->count(10) // Create 10 clients
+        // ->create();
     }
 }

@@ -72,7 +72,7 @@
                                         <div class="d-flex flex-column mb-md-10 mb-5">
                                             <label for="name"
                                                    class="pb-2 fs-4 text-gray-600">{{ __('messages.quote.issue_for').':' }}</label>
-                                            <span class="fs-4 text-gray-800 mb-3">{{ $quote->client->user->full_name }}</span>
+                                            <span class="fs-4 text-gray-800 mb-3">{{ $quote->client->full_name }}</span>
                                             <p class="text-gray-700 fs-4 mb-0">
                                                 @if(isset($quote->client->address) && !empty($quote->client->address))
                                                     {{ ucfirst($quote->client->address) }}
@@ -162,15 +162,15 @@
                                             <label for="name" class="pb-2 fs-4 text-gray-600">{{ __('messages.quote.client_name') }}</label>
                                             @if($auth)
                                                 <a href="{{ route('clients.show', ['client' => $quote->client->id]) }}"
-                                                   class="link-primary text-decoration-none">{{ $quote->client->user->full_name }}</a>
+                                                   class="link-primary text-decoration-none">{{ $quote->client->full_name }}</a>
 
                                             @else
-                                                <a href="#" class="link-primary fs-4 text-decoration-none">{{ $quote->client->user->full_name }}</a>
+                                                <a href="#" class="link-primary fs-4 text-decoration-none">{{ $quote->client->full_name }}</a>
                                             @endif
                                         </div>
                                         <div class="col-xxl-12 col-lg-4 col-sm-6 d-flex flex-column mb-xxl-7 mb-lg-0 mb-4">
                                             <label for="name" class="pb-2 fs-4 text-gray-600">{{ __('messages.quote.client_email') }}</label>
-                                            <span class="fs-4 text-gray-900">{{ $quote->client->user->email }}</span>
+                                            <span class="fs-4 text-gray-900">{{ $quote->client->email }}</span>
                                         </div>
                                     </div>
                                 </div>

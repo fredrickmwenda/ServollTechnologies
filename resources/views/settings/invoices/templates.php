@@ -31,12 +31,12 @@
                         <p class="p-text mb-0"><b><?php echo __('messages.invoice.invoice_date') ?>: </b> 25th Nov, 2020 8:03 AM</p>
                         <p class="p-text mb-0"><b><?php echo __('messages.invoice.due_date') ?>: </b> 26th Nov, 2020</p>
                     </div>
-                    <div class="col-md-3 d-flex align-items-end ">
+                    <!-- <div class="col-md-3 d-flex align-items-end ">
                         <div class="text-center">
                                 <small  style="font-size: 15px; margin-bottom: 3px"><b><?php echo __('messages.payment_qr_codes.payment_qr_code') ?></b></small><br>
                                 <img class="mt-2" src="<?php echo asset('images/qrcode.png') ?>" height="100" width="100">
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="table d-table">
                     <div class="d-table-tr" style="background:{{:invColor}};color: #fff;">
@@ -164,12 +164,12 @@
                                             <p class="p-text mb-0">&lt<?php echo __('messages.invoice.client_email')  ?>&gt</p>
                                             <p class="p-text mb-0">&lt<?php echo __('messages.client_address')  ?>&gt</p><br>
                                       </div>
-                                      <div class="col-md-5 d-flex align-items-end">
+                                      <!-- <div class="col-md-5 d-flex align-items-end">
                                         <div>
                                       <strong  style="font-size: ; margin-right: 142px"><b><?php echo __('messages.payment_qr_codes.payment_qr_code') ?>:</b></strong>
                                      <img class="mt-2" src="<?php echo asset('images/qrcode.png') ?>" height="100" width="100">
                                      </div>
-                                      </div>
+                                      </div> -->
                                     </div><br>
                                     <div class=table" width="100%">
                                          <div class="tu d-table-tr" style="background:{{:invColor}};color: white;padding: 0px 8px 0px 8px;">
@@ -303,12 +303,12 @@
                          </table>
                          </div>
                     </div>
-                        <div class="col-lg-4 d-flex align-items-end justify-content-end">
+                        <!-- <div class="col-lg-4 d-flex align-items-end justify-content-end">
                             <div class="text-center">
                                 <strong  style="font-size:15px ;"><b><?php echo __('messages.payment_qr_codes.payment_qr_code') ?></b></strong><br>
                                 <img class="mt-2" src="<?php echo asset('images/qrcode.png') ?>" height="100" width="100">
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="table d-table">
@@ -452,12 +452,12 @@
                                  <p class="p-text mb-2">&lt<?php echo __('messages.client_address')  ?>&gt;</p>
                         </div>
                     </div>
-                    <div class="col-lg-3 d-flex align-items-end">
+                    <!-- <div class="col-lg-3 d-flex align-items-end">
                         <div class="text-center">
                             <strong  style="font-size:15px ;"><b><?php echo __('messages.payment_qr_codes.payment_qr_code') ?></b></strong><br>
                              <img class="mt-2" src="<?php echo asset('images/qrcode.png') ?>" height="100" width="100">
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="table d-table">
                     <div class="tu d-table-tr" style="border-top: 1px solid {{:invColor}};">
@@ -592,12 +592,12 @@
                             </tbody>
                         </table>
                         </div>
-                        <div class="col-lg-3 d-flex align-items-end">
+                        <!-- <div class="col-lg-3 d-flex align-items-end">
                             <div class="text-center">
                                 <strong  style="font-size:15px ;"><b><?php echo __('messages.payment_qr_codes.payment_qr_code') ?></b></strong><br>
                                  <img class="mt-2" src="<?php echo asset('images/qrcode.png') ?>" height="100" width="100">
                             </div>
-                        </div>
+                        </div> -->
                         </div>
                 <div class="table d-table">
                     <div class="tu d-table-tr" style="border-top: 2px solid {{:invColor}}; border-bottom: 2px solid {{:invColor}};">
@@ -738,12 +738,12 @@
                             </tbody>
                             </table>
                             </div>
-                        <div class="col-lg-3 d-flex align-items-end">
+                        <!-- <div class="col-lg-3 d-flex align-items-end">
                             <div class="text-center">
                                 <strong  style="font-size:15px ;"><b><?php echo __('messages.payment_qr_codes.payment_qr_code') ?></b></strong><br>
                                  <img class="mt-2" src="<?php echo asset('images/qrcode.png') ?>" height="100" width="100">
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                 <div class="table d-table">
@@ -868,12 +868,12 @@
                             <p class="p-text mb-2">  &lt<?php echo __('messages.client_address')  ?>&gt;</p>
                         </div>
                     </div>
-                    <div class="col-lg-3 d-flex align-items-end">
+                    <!-- <div class="col-lg-3 d-flex align-items-end">
                             <div class="text-center">
                                 <strong  style="font-size:15px ;"><b><?php echo __('messages.payment_qr_codes.payment_qr_code') ?></b></strong><br>
                                  <img class="mt-2" src="<?php echo asset('images/qrcode.png') ?>" height="100" width="100">
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
@@ -1035,12 +1035,12 @@
                             <p class="p-text mb-2"> &lt<?php echo __('messages.client_address')  ?>&gt;</p>
                         </p>
                     </div>
-                        <div class="col-lg-3 d-flex align-items-end">
+                        <!-- <div class="col-lg-3 d-flex align-items-end">
                             <div class="text-center">
                                 <strong  style="font-size:15px ;"><b><?php echo __('messages.payment_qr_codes.payment_qr_code') ?></b></strong><br>
                                  <img class="mt-2" src="<?php echo asset('images/qrcode.png') ?>" height="100" width="100">
                             </div>
-                        </div>
+                        </div> -->
                 </div>
                     <div class="table hk-table">
                         <div class="tu d-table-tr">
@@ -1177,12 +1177,12 @@
                                 </tbody>
                             </table>
                         </div>
-                          <div class="col-lg-3 d-flex align-items-end">
+                          <!-- <div class="col-lg-3 d-flex align-items-end">
                             <div class="text-center">
                                 <strong  style="font-size:15px ;"><b><?php echo __('messages.payment_qr_codes.payment_qr_code') ?></b></strong><br>
                                  <img class="mt-2" src="<?php echo asset('images/qrcode.png') ?>" height="100" width="100">
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                 </div>
@@ -1321,12 +1321,12 @@
                             <p class="p-text mb-2">&lt<?php echo __('messages.invoice.client_email')  ?>&gt;<br></p>
                             <p class="p-text mb-2">&lt<?php echo __('messages.client_address')  ?>&gt;</p>
                         </div>
-                    <div class="col-lg-3 d-flex align-items-end">
+                    <!-- <div class="col-lg-3 d-flex align-items-end">
                             <div class="text-center">
                                 <strong  style="font-size:15px ;"><b><?php echo __('messages.payment_qr_codes.payment_qr_code') ?></b></strong><br>
                                  <img class="mt-2" src="<?php echo asset('images/qrcode.png') ?>" height="100" width="100">
                             </div>
-                        </div>
+                        </div> -->
                 </div>
                 <div class="table d-table">
                     <div class="tu d-table-tr" style="color: {{:invColor}};border-top: 2px solid {{:invColor}};border-bottom: 2px solid {{:invColor}}">

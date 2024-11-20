@@ -51,7 +51,7 @@
                                         <a href="javascript:void(0);" class="dropdown-item">
                                             <div class="d-flex align-items-center">
                                                 <div class="flex-shrink-0">
-                                                    <img src="assets/images/usa.svg" class="wh-30 rounded-circle" alt="united-states">
+                                                    <img src="{{asset('assets/images/usa.svg')}}" class="wh-30 rounded-circle" alt="united-states">
                                                 </div>
                                                 <div class="flex-grow-1 ms-2">
                                                     <span class="text-secondary fw-medium fs-14">English</span>
@@ -63,7 +63,7 @@
                                         <a href="javascript:void(0);" class="dropdown-item">
                                             <div class="d-flex align-items-center">
                                                 <div class="flex-shrink-0">
-                                                    <img src="assets/images/canada.svg" class="wh-30 rounded-circle" alt="spain">
+                                                    <img src="{{asset('assets/images/canada.svg')}}" class="wh-30 rounded-circle" alt="spain">
                                                 </div>
                                                 <div class="flex-grow-1 ms-2">
                                                     <span class="text-secondary fw-medium fs-14">Canada</span>
@@ -75,7 +75,7 @@
                                         <a href="javascript:void(0);" class="dropdown-item">
                                             <div class="d-flex align-items-center">
                                                 <div class="flex-shrink-0">
-                                                    <img src="assets/images/germany.svg" class="wh-30 rounded-circle" alt="spain">
+                                                    <img src="{{asset('assets/images/germany.svg')}}" class="wh-30 rounded-circle" alt="spain">
                                                 </div>
                                                 <div class="flex-grow-1 ms-2">
                                                     <span class="text-secondary fw-medium fs-14">Germany</span>
@@ -87,7 +87,7 @@
                                         <a href="javascript:void(0);" class="dropdown-item">
                                             <div class="d-flex align-items-center">
                                                 <div class="flex-shrink-0">
-                                                    <img src="assets/images/portugal.svg" class="wh-30 rounded-circle" alt="portugal">
+                                                    <img src="{{asset('assets/images/portugal.svg')}}" class="wh-30 rounded-circle" alt="portugal">
                                                 </div>
                                                 <div class="flex-grow-1 ms-2">
                                                     <span class="text-secondary fw-medium fs-14">Portugal</span>
@@ -99,7 +99,7 @@
                                         <a href="javascript:void(0);" class="dropdown-item">
                                             <div class="d-flex align-items-center">
                                                 <div class="flex-shrink-0">
-                                                    <img src="assets/images/spain.svg" class="wh-30 rounded-circle" alt="spain">
+                                                    <img src="{{asset('assets/images/spain.svg')}}" class="wh-30 rounded-circle" alt="spain">
                                                 </div>
                                                 <div class="flex-grow-1 ms-2">
                                                     <span class="text-secondary fw-medium fs-14">Spain</span>

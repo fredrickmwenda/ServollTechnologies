@@ -116,7 +116,7 @@
                                                 {!! getSettingValue('company_address') !!}</p>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <!-- <div class="col-md-3">
                                         <div class="d-flex flex-column mb-md-10 mb-5">
                                             <label for="name"
                                                 class="pb-2 fs-4 text-gray-600">{{ __('messages.payment_qr_codes.payment_qr_code') . ':' }}</label>
@@ -128,7 +128,7 @@
                                                 @endif
                                             </p>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="col-12 table-responsive">
                                         <table class="table table-striped box-shadow-none mt-4">
                                             <thead>
@@ -170,7 +170,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    @if (!empty($invoice->paymentQrCode))
+                                    <!-- @if (!empty($invoice->paymentQrCode))
                                         <div class="col-lg-2 mt-5 mx-3 ">
                                             <span class="fs-4 text-gray-600">
                                                 {{ __('messages.payment_qr_codes.payment_qr_code') . ':' . ' ' }}
@@ -178,7 +178,7 @@
                                             <img class="mt-3" src="{{ $invoice->paymentQrCode->qr_image }}"
                                                 width="120" height="120">
                                         </div>
-                                    @endif
+                                    @endif -->
                                     @if (count($invoice->invoiceTaxes) > 0)
                                         <div class="col-lg-4">
                                             <div class="d-flex align-items-center mt-2">

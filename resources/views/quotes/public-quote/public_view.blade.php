@@ -25,8 +25,7 @@
         let momentDateFormat = "{{ momentJsCurrentDateFormat() }}"
         let ajaxCallIsRunning = false
         let phoneNo = ''
-        let getUserLanguages = "{{ $userLang }}"
-        Lang.setLocale(getUserLanguages)
+
     </script>
     <script src="{{ mix('assets/js/pages.js') }}"></script>
 </head>

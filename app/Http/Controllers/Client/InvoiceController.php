@@ -54,9 +54,9 @@ class InvoiceController extends AppBaseController
     public function show(Invoice $invoice)
     {
         $invoice->load('client');
-        if (getLogInUserId() != $invoice->client->user_id) {
-            return abort(404);
-        }
+        // if (getLogInUserId() != $invoice->client->user_id) {
+        //     return abort(404);
+        // }
         if ($invoice->status == Invoice::DRAFT) {
             Flash::error('Invoice Not Found.');
 

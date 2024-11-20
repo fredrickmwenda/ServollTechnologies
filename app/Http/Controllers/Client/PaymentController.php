@@ -78,11 +78,11 @@ class PaymentController extends AppBaseController
 
     public function show(Request $request, Invoice $invoice)
     {
-        if (getLogInUserId() != $invoice->client->user_id) {
-            Flash::error('Seems, you are not allowed to access this record.');
+        // if (getLogInUserId() != $invoice->client->user_id) {
+        //     Flash::error('Seems, you are not allowed to access this record.');
 
-            return redirect()->back();
-        }
+        //     return redirect()->back();
+        // }
         $totalPayable = $this->paymentRepository->getTotalPayable($invoice);
         $paymentType = Payment::PAYMENT_TYPE;
         $paymentMode = $this->invoiceRepository->getPaymentGateways();
@@ -106,9 +106,7 @@ class PaymentController extends AppBaseController
 
     public function exportTransactionsPdf(): Response
     {
-        $data['payments'] = Payment::with('invoice.client.user')->whereHas('invoice.client', function (Builder $q) {
-            $q->where('user_id', getLogInUser()->client->user_id);
-        })->orderBy('created_at', 'desc')->get();
+        $data['payments'] = Payment::with('invoice.client')->whereHas('invoice.client')->orderBy('created_at', 'desc')->get();
         $clientTransactionsPdf = Pdf::loadView('transactions.export_transactions_pdf', $data);
 
         return $clientTransactionsPdf->download('Client-Transactions.pdf');

@@ -80,9 +80,9 @@ class CreateRecurringInvoiceJob implements ShouldQueue
             // Send mail to customer
             if ($this->recurringInvoice->status !== Invoice::DRAFT) {
                 $input['invoiceData'] = $invoiceRecord;
-                $input['clientData'] = $invoiceRecord->client->user->toArray();
+                $input['clientData'] = $invoiceRecord->client->toArray();
                 if (getSettingValue('mail_notification')) {
-                    Mail::to($invoiceRecord->client->user->email)->send(new InvoiceCreateClientMail($input));
+                    Mail::to($invoiceRecord->client->email)->send(new InvoiceCreateClientMail($input));
                 }
             }
 

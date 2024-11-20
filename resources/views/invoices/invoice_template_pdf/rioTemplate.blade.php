@@ -77,14 +77,7 @@
                         <br><b>{{ __('messages.common.address') . ':' }}&nbsp;</b>{{ $client->address }}
                     @endif
                 </td>
-                @if (!empty($invoice->paymentQrCode))
-                    <td style="width: 30%" class="text-center">
-                        <strong
-                            style="font-size: ; margin-right: 142px"><b>{{ __('messages.payment_qr_codes.payment_qr_code') }}</b></strong><br>
-                        <img class="mt-2" src="{{ $invoice->paymentQrCode->qr_image }}" height="110"
-                            width="110 ">
-                    </td>
-                @endif
+                
             </tr>
         </thead>
     </table>

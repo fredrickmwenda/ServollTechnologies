@@ -54,10 +54,10 @@
                 {{ Form::label('templateId', __('messages.setting.invoice_template') . ':', ['class' => 'form-label mb-3']) }}
                 {{ Form::select('template_id', $template, getInvoiceSettingTemplateId() ?? null, ['class' => 'form-select io-select2', 'id' => 'templateId', 'required', 'data-control' => 'select2']) }}
             </div>
-            <div class="mb-5 col-lg-3 col-sm-12">
+            <!-- <div class="mb-5 col-lg-3 col-sm-12">
                 {{ Form::label('payment_qr_code_id', __('messages.payment_qr_codes.payment_qr_code') . ':', ['class' => 'form-label mb-3']) }}
                 {{ Form::select('payment_qr_code_id', $paymentQrCodes, $defaultPaymentQRCode ?? null, ['class' => 'form-select io-select2 payment-qr-code', 'data-control' => 'select2', 'placeholder' => __('messages.flash.select_payment_qr_code')]) }}
-            </div>
+            </div> -->
             <div class="mb-5 col-lg-6 col-sm-12">
                 {{ Form::label('currencyType', __('messages.setting.currencies') . ':', ['class' => 'form-label mb-3']) }}
                 <select id="currencyType" class="form-select invoice-currency-type" name="currency_id">

@@ -81,13 +81,13 @@ class PaymentController extends AppBaseController
         $transaction = Payment::with('media')->findOrFail($transactionId);
         $attachment = $transaction->media->first();
 
-        if (getLogInUser()->hasrole(Role::CLIENT)) {
-            if ($transaction->invoice->client->user_id !== getLogInUserId()) {
-                Flash::error(__('messages.flash.seems_you_are_not_allowed_to_access_this_record'));
+        // if (getLogInUser()->hasrole(Role::CLIENT)) {
+        //     if ($transaction->invoice->client->user_id !== getLogInUserId()) {
+        //         Flash::error(__('messages.flash.seems_you_are_not_allowed_to_access_this_record'));
 
-                return redirect()->back();
-            }
-        }
+        //         return redirect()->back();
+        //     }
+        // }
 
         if ($attachment) {
             return $attachment;

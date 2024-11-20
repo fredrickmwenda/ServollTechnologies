@@ -11,7 +11,7 @@ listenSubmit("#addTaxForm", function (e) {
         type: "POST",
         data: $(this).serialize(),
         beforeSend: function () {
-            startLoader();
+            // startLoader();
         },
         success: function (result) {
             if (result.success) {
@@ -48,7 +48,7 @@ listenSubmit("#editTaxForm", function (event) {
         type: "put",
         data: $(this).serialize(),
         beforeSend: function () {
-            startLoader();
+           
         },
         success: function (result) {
             if (result.success) {

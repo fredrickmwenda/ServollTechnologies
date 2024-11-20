@@ -29,9 +29,7 @@ class QuoteRepository extends BaseRepository
     /**
      * @var string[]
      */
-    public $fieldSearchable = [
-
-    ];
+    public $fieldSearchable = [];
 
     public function getFieldsSearchable(): array
     {
@@ -131,46 +129,88 @@ class QuoteRepository extends BaseRepository
             }
 
             /** @var Quote $quote */
-            $input['client_id'] = Client::whereUserId($input['client_id'])->first()->id;
+            $input['client_id'] = Client::where('id', $input['client_id'])->first()->id;
             $input = Arr::only($input, [
-                'client_id', 'quote_id', 'quote_date', 'due_date', 'discount_type', 'discount', 'final_amount',
-                'note', 'term', 'template_id', 'status',
+                'client_id',
+                'quote_id',
+                'quote_date',
+                'due_date',
+                'discount_type',
+                'discount',
+                'final_amount',
+                'note',
+                'term',
+                'template_id',
+                'status',
             ]);
             $quote = Quote::create($input);
             $totalAmount = 0;
             foreach ($quoteItemInput as $key => $data) {
+                // Validate each quote item using predefined rules and messages in QuoteItem model
                 $validator = Validator::make($data, QuoteItem::$rules, QuoteItem::$messages);
-
+            
                 if ($validator->fails()) {
+                    info('validation failure');
+                    // If validation fails, throw an error with the first validation message
                     throw new UnprocessableEntityHttpException($validator->errors()->first());
                 }
-                $data['product_name'] = is_numeric($data['product_id']);
-                if ($data['product_name'] == true) {
-                    $data['product_name'] = null;
+                info('mapambano');
+            
+                // If product_id is numeric, fetch the product's name from the database
+                if (is_numeric($data['product_id'])) {
+                    
+                    // Retrieve the product by its ID
+                    $product = Product::find($data['product_id']);
+                    info($product);
+                    
+                    if ($product) {
+                        // If the product exists, assign the product's name
+                        $data['product_name'] = $product->name;
+                        $data['product_name'] = $product->id;
+                    } else {
+                        // If the product doesn't exist, throw an error
+                        throw new UnprocessableEntityHttpException('Invalid product ID.');
+                    }
                 } else {
+                    info('not found');
+                    // If product_id is not numeric, assume it's a custom product name
                     $data['product_name'] = $data['product_id'];
-                    $data['product_id'] = null;
+                    $data['product_id'] = null; // No valid product_id in this case
                 }
-                $data['amount'] = $data['price'] * $data['quantity'];
-
+            
+                // Check if both price and quantity exist before calculating the amount
+                if (isset($data['price']) && isset($data['quantity'])) {
+                    // Calculate the total amount for the quote item
+                    $data['amount'] = $data['price'] * $data['quantity'];
+                } else {
+                    // Throw an error if either price or quantity is missing
+                    throw new UnprocessableEntityHttpException('Price or quantity is missing.');
+                }
+            
+                // Assign the calculated amount as the total for this quote item
                 $data['total'] = $data['amount'];
+            
+                // Accumulate the total amount for all quote items
                 $totalAmount += $data['amount'];
-
+            
                 /** @var QuoteItem $quoteItem */
+                // Create a new QuoteItem using the modified $data array
                 $quoteItem = new QuoteItem($data);
-
+            
+                // Save the quote item to the database, associating it with the current quote
                 $quoteItem = $quote->quoteItems()->save($quoteItem);
             }
+            
 
             $quote->amount = $totalAmount;
             $quote->save();
 
             DB::commit();
-            if (getSettingValue('mail_notification')) {
-                $input['quoteData'] = $quote;
-                $input['clientData'] = $quote->client->user;
-                Mail::to($input['clientData']['email'])->send(new QuoteCreateClientMail($input));
-            }
+            // if (getSettingValue('mail_notification')) {
+            //     $input['quoteData'] = $quote;
+            //     $input['clientData'] = $quote->client->user;
+            //     Mail::to($input['clientData']['email'])->send(new QuoteCreateClientMail($input));
+            // }
 
             return $quote;
         } catch (Exception $exception) {
@@ -202,13 +242,23 @@ class QuoteRepository extends BaseRepository
             }
 
             /** @var Quote $quote */
-            $input['client_id'] = Client::whereUserId($input['client_id'])->first()->id;
-            $quote = $this->update(Arr::only($input,
+            $input['client_id'] = Client::where('id', $input['client_id'])->first()->id;
+            $quote = $this->update(Arr::only(
+                $input,
                 [
-                    'client_id', 'quote_date', 'due_date', 'discount_type', 'discount', 'final_amount', 'note',
-                    'term', 'template_id', 'price',
+                    'client_id',
+                    'quote_date',
+                    'due_date',
+                    'discount_type',
+                    'discount',
+                    'final_amount',
+                    'note',
+                    'term',
+                    'template_id',
+                    'price',
                     'status',
-                ]), $quoteId);
+                ]
+            ), $quoteId);
             $totalAmount = 0;
 
             foreach ($quoteItemInput as $key => $data) {
@@ -280,7 +330,7 @@ class QuoteRepository extends BaseRepository
     {
         $userId = $input['client_id'];
         $input['quote_id'] = $quote->quote_id;
-        $title = 'New Quote created #'.$input['quote_id'].'.';
+        $title = 'New Quote created #' . $input['quote_id'] . '.';
         if ($input['status'] != Quote::DRAFT) {
             addNotification([
                 Notification::NOTIFICATION_TYPE['Quote Created'],
@@ -294,10 +344,10 @@ class QuoteRepository extends BaseRepository
     {
         $quote->load('client.user');
         $userId = $quote->client->user_id;
-        $title = 'Your Quote #'.$quote->quote_id.' was updated.';
+        $title = 'Your Quote #' . $quote->quote_id . ' was updated.';
         if ($input['status'] != Quote::DRAFT) {
             if (isset($changes['status'])) {
-                $title = 'Status of your Quote #'.$quote->quote_id.' was updated.';
+                $title = 'Status of your Quote #' . $quote->quote_id . ' was updated.';
             }
             addNotification([
                 Notification::NOTIFICATION_TYPE['Quote Updated'],

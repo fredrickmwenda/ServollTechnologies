@@ -34,21 +34,19 @@ class ProductRepository extends BaseRepository
 
     public function store($input): bool
     {
+       
         try {
             DB::beginTransaction();
             $product = Product::create($input);
             if (isset($input['image']) && ! empty($input['image'])) {
                 $product->addMedia($input['image'])->toMediaCollection(Product::Image, config('app.media_disc'));
             }
-            if ($input['image_remove'] == 1 && isset($input['image_remove']) && empty($input['image'])) {
-                $product->clearMediaCollection(Product::Image);
-                $product->media()->delete();
-            }
 
             DB::commit();
 
             return true;
         } catch (Exception $e) {
+            dd($input);
             DB::rollBack();
             throw new UnprocessableEntityHttpException($e->getMessage());
         }

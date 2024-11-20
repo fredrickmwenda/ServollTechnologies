@@ -105,6 +105,12 @@ class SettingRepository extends BaseRepository
         return true;
     }
 
+    public function getSettingByKey($key)
+{
+    return Setting::where('key', $key)->first();
+}
+
+
     public function editSettingsData(): array
     {
         $data = [];

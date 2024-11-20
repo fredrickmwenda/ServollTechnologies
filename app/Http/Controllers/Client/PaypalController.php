@@ -132,7 +132,7 @@ class PaypalController extends AppBaseController
             $transactionDetails = [
                 'transaction_id' => $transactionId,
                 'amount' => $amount,
-                'user_id' => $client->user->id,
+                'user_id' => $client->id,
                 'status' => 'paid',
                 'meta' => json_encode($response),
             ];

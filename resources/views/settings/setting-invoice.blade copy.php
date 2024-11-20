@@ -1,7 +1,4 @@
-@extends('settings.edit')
-@section('title')
-    {{ __('messages.invoice_templates') }}
-@endsection
+
 @section('page_css')
     <link rel="stylesheet" href="{{ asset('assets/css/invoice-template.css') }}">
 @endsection

@@ -375,7 +375,7 @@ listenClick('#saveAsDraftQuote', function (event) {
             processData: false,
             contentType: false,
             beforeSend: function () {
-                startLoader();
+               
             },
             success: function (result) {
                 displaySuccessMessage(result.message)
@@ -393,7 +393,7 @@ listenClick('#saveAsDraftQuote', function (event) {
 listenClick('#editSaveQuote', function (event) {
     event.preventDefault();
     let quoteStatus = $(this).data('status');
-
+ 
     let formData = $('#quoteEditForm').serialize() + '&quoteStatus=' +
         quoteStatus;
         screenLock();
@@ -403,7 +403,7 @@ listenClick('#editSaveQuote', function (event) {
             dataType: 'json',
             data: formData,
             beforeSend: function () {
-                startLoader();
+               
             },
             success: function (result) {
                 displaySuccessMessage(result.message)

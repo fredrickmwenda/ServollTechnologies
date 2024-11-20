@@ -21,6 +21,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Laracasts\Flash\Flash;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -62,13 +63,21 @@ class QuoteController extends AppBaseController
 
     public function store(CreateQuoteRequest $request): JsonResponse
     {
+        info($request->all());
         try {
             DB::beginTransaction();
             $request->status = Quote::DRAFT;
             $quote = $this->quoteRepository->saveQuote($request->all());
             DB::commit();
         } catch (Exception $e) {
+            // dd('error',['error'=> $e->getMessage()]);
             DB::rollBack();
+            Log::error('Quote saving failed', [
+                'error_message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString()
+            ]);
 
             return $this->sendError($e->getMessage());
         }
@@ -226,7 +235,7 @@ class QuoteController extends AppBaseController
         $quoteData = $this->quoteRepository->getQuoteData($quote);
         $quoteData['statusArr'] = Quote::STATUS_ARR;
         $quoteData['status'] = $quote->status;
-        $quoteData['userLang'] = $quote->client->user->language;
+        // $quoteData['userLang'] = $quote->client->user->language;
 
         return view('quotes.public-quote.public_view')->with($quoteData);
     }

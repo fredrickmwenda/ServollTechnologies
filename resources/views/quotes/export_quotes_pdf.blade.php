@@ -39,8 +39,8 @@
             @foreach($quotes as $quote)
                 <tr class="custom-font-size-pdf">
                     <td>{{ $quote->quote_id }}</td>
-                    <td>{{ $quote->client->user->FullName }}</td>
-                    <td>{{ $quote->client->user->email }}</td>
+                    <td>{{ $quote->client->FullName }}</td>
+                    <td>{{ $quote->client->email }}</td>
                     <td>{{ \Carbon\Carbon::parse($quote->quote_date)->translatedFormat(currentDateFormat()) }}</td>
                     <td class="right-align">{{ getCurrencyAmount($quote->final_amount, true) }}</td>
                     <td>{{ \Carbon\Carbon::parse($quote->due_date)->translatedFormat(currentDateFormat()) }}</td>

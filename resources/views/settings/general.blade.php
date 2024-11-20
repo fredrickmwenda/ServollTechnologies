@@ -4,6 +4,10 @@
 {{ __('messages.settings') }}
 @endsection
 
+@section('page_css')
+    <link rel="stylesheet" href="{{ asset('assets/css/invoice-template.css') }}">
+@endsection
+
 @push('css')
 <style>
     .custom-switch {
@@ -84,6 +88,16 @@
                     {{ __('Invoice Settings') }}
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" id="invoiceTemplate-tab" data-bs-toggle="tab" href="#invoiceTemplate" role="tab" aria-controls="invoiceTemplate" aria-selected="false">
+                    {{ __('Invoice Template') }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="terms-tab" data-bs-toggle="tab" href="#terms" role="tab" aria-controls="terms" aria-selected="false">
+                    {{ __('Terms and conditions') }}
+                </a>
+            </li>
         </ul>
 
         <!-- Tab panes -->
@@ -98,17 +112,18 @@
                         {{ Form::text('app_name', $settings['app_name'], ['class' => 'form-control ', 'required', 'id' => 'app_name']) }}
                     </div>
                     <div class="form-group col-sm-4 mb-5">
-                        {{ Form::label('company_name', __('messages.setting.company_name') . ':', ['class' => 'form-label required fs-6  mb-3']) }}
+                        {{ Form::label('company_name', __('messages.setting.company_name') . ':', ['class' => 'form-label required text-dark fs-6  mb-3']) }}
                         {{ Form::text('company_name', $settings['company_name'], ['class' => 'form-control ', 'required', 'id' => 'company_name']) }}
                     </div>
+                    @livewire('company-type-select')
                     <div class="form-group col-sm-4 mb-5 country-code">
-                        {{ Form::label('country_phone', __('messages.setting.country_code') . ':', ['class' => 'form-label required fs-6  mb-3']) }}
+                        {{ Form::label('country_phone', __('messages.setting.country_code') . ':', ['class' => 'form-label required text-dark fs-6  mb-3']) }}
                         {{ Form::tel('country_phone', $settings['country_code'], ['class' => 'form-control width-0', 'onkeyup' => 'if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,"")', 'id' => 'countryPhone']) }}
                         {{ Form::hidden('country_code', null, ['id' => 'countryCode']) }}
                         {{ Form::hidden('default_country_code', str_replace('+', '', $settings['country_code']), ['id' => 'defaultCountryCode']) }}
                     </div>
                     <div class="form-group col-sm-4 mb-5">
-                        {{ Form::label('company_phone', __('messages.setting.company_phone') . ':', ['class' => 'form-label required fs-6  mb-3']) }}
+                        {{ Form::label('company_phone', __('messages.setting.company_phone') . ':', ['class' => 'form-label required text-dark fs-6  mb-3']) }}
                         <br>
                         {{ Form::tel('company_phone', $settings['company_phone'] ?? getSettingValue('country_code'), ['class' => 'form-control ', 'id' => 'phoneNumber', 'onkeyup' => 'if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,"")', 'required']) }}
                         {{ Form::hidden('prefix_code', null, ['id' => 'prefix_code']) }}
@@ -116,25 +131,25 @@
                         <span id="error-msg" class="hide"></span>
                     </div>
                     <div class="form-group col-sm-4 mb-5">
-                        {{ Form::label('date_format', __('messages.setting.date_format') . ':', ['class' => 'form-label required fs-6  mb-3']) }}
+                        {{ Form::label('date_format', __('messages.setting.date_format') . ':', ['class' => 'form-label required text-dark fs-6  mb-3']) }}
                         {{ Form::select('date_format', $dateFormats, $settings['date_format'], ['class' => 'form-select ', 'id' => 'dateFormat']) }}
                     </div>
                     <div class="form-group col-sm-4 mb-5">
-                        {{ Form::label('timezone', __('messages.setting.timezone') . ':', ['class' => 'form-label required fs-6  mb-3']) }}
+                        {{ Form::label('timezone', __('messages.setting.timezone') . ':', ['class' => 'form-label required text-dark fs-6  mb-3']) }}
                         {{ Form::select('time_zone', $timezones, getCurrentTimeZone(), ['class' => 'form-select ', 'id' => 'timeZone']) }}
                     </div>
                     <div class="form-group col-sm-3 mb-5">
-                        {{ Form::label('payment_auto_approved', __('messages.setting.manual_payment_approval') . ':', ['class' => 'form-label required mb-3']) }}
-                        <label class="form-check form-switch form-check-custom mt-3">
-                            <input class="form-check-input currencyAfterAmount" type="checkbox"
+                        {{ Form::label('payment_auto_approved', __('messages.setting.manual_payment_approval') . ':', ['class' => 'form-label text-dark fs-6 required mb-3']) }}
+                        <div class="custom-switch mt-3 width-fit-content">
+                            <input class="custom-switch-input currencyAfterAmount" type="checkbox"
                                 name="payment_auto_approved"
                                 id="paymentAutoApproved" {{ isset($settings['payment_auto_approved']) && $settings['payment_auto_approved'] == \App\Models\Setting::PAYMENT_AUTO_APPROVED ? 'checked' : '' }}>
                             <span class="form-check-label text-gray-600"
                                 for="currencyAfterAmount">{{ __('messages.setting.auto_approve') }}</span>&nbsp;&nbsp;
-                        </label>
+                        </div>
                     </div>
                     <div class="form-group col-sm-3 mb-5">
-                        {{ Form::label('time_format', __('messages.setting.time_format') . ':', ['class' => 'form-label required fs-6  mb-3']) }}
+                        {{ Form::label('time_format', __('messages.setting.time_format') . ':', ['class' => 'form-label required text-dark fs-6  mb-3']) }}
                         <div class="radio-button-group">
                             <div class="btn-group btn-group-toggle m-0" data-toggle="buttons">
                                 <input type="radio" name="time_format" id="time_format-0"
@@ -148,7 +163,7 @@
                         </div>
                     </div>
                     <div class="form-group col-sm-3 mb-5">
-                        {{ Form::label('mail_notifications', __('messages.setting.mail_notifications') . ':', ['class' => 'form-label required fs-6  mb-3']) }}
+                        {{ Form::label('mail_notifications', __('messages.setting.mail_notifications') . ':', ['class' => 'form-label required text-dark fs-6  mb-3']) }}
                         <div class="radio-button-group">
                             <div class="btn-group btn-group-toggle m-0" data-toggle="buttons">
                                 <input type="radio" name="mail_notification" id="mail_notification-0"
@@ -162,7 +177,7 @@
                         </div>
                     </div>
                     <div class="form-group col-sm-3 mb-5">
-                        {{ Form::label('clear_cache', __('messages.clear_cache') . ':', ['class' => 'form-label fs-6  mb-3']) }}
+                        {{ Form::label('clear_cache', __('messages.clear_cache') . ':', ['class' => 'form-label text-dark fs-6  mb-3']) }}
                         <div>
                             <a class="btn btn-primary" data-turbo="false" aria-current="page"
                                 href="{{ route('clear-cache') }}">
@@ -171,7 +186,7 @@
                         </div>
                     </div>
                     <div class="form-group col-sm-2 mb-5">
-                        {{ Form::label('country', __('messages.common.country') . ':', ['class' => 'form-label fs-6  mb-3']) }}
+                        {{ Form::label('country', __('messages.common.country') . ':', ['class' => 'form-label text-dark fs-6  mb-3']) }}
                         {{ Form::text('country', $settings['country'], ['class' => 'form-control ', 'id' => 'country']) }}
                     </div>
                     <div class="form-group col-sm-2 mb-5">
@@ -179,30 +194,31 @@
                         {{ Form::text('state', $settings['state'], ['class' => 'form-control ', 'id' => 'state']) }}
                     </div>
                     <div class="form-group col-sm-2 mb-5">
-                        {{ Form::label('city', __('messages.common.city') . ':', ['class' => 'form-label fs-6  mb-3']) }}
+                        {{ Form::label('city', __('messages.common.city') . ':', ['class' => 'form-label text-dark fs-6  mb-3']) }}
                         {{ Form::text('city', $settings['city'], ['class' => 'form-control ', 'id' => 'city']) }}
                     </div>
                     <div class="form-group col-sm-3 mb-5">
-                        {{ Form::label('zipcode', __('messages.common.zipcode') . ':', ['class' => 'form-label fs-6  mb-3']) }}
+                        {{ Form::label('zipcode', __('messages.common.zipcode') . ':', ['class' => 'form-label text-dark fs-6  mb-3']) }}
                         {{ Form::text('zipcode', $settings['zipcode'], ['class' => 'form-control ', 'id' => 'zipcode']) }}
                     </div>
                     <div class="form-group col-sm-3 mb-5">
-                        {{ Form::label('fax_no', __('messages.invoice.fax_no') . ':', ['class' => 'form-label fs-6  mb-3']) }}
+                        {{ Form::label('fax_no', __('messages.invoice.fax_no') . ':', ['class' => 'form-label text-dark fs-6  mb-3']) }}
                         {{ Form::text('fax_no', $settings['fax_no'], ['class' => 'form-control ', 'id' => 'faxNumber']) }}
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-6 mb-5 mt-2 d-flex align-items-center gap-2">
-                            {{ Form::label('show_additional_address_in_invoice', __('messages.setting.show_additional_address') . ':', ['class' => 'form-label mb-3']) }}
-                            <label class="form-check form-switch form-check-custom">
-                                <input class="form-check-input currencyAfterAmount" type="checkbox"
+                            {{ Form::label('show_additional_address_in_invoice', __('messages.setting.show_additional_address') . ':', ['class' => 'form-label text-dark fs-6 mb-3']) }}
+
+                            <div class="custom-switch mt-3 width-fit-content">
+                                <input class="custom-switch-input currencyAfterAmount" type="checkbox"
                                     name="show_additional_address_in_invoice"
                                     id="ShowAdditionalAddress" {{ isset($settings['show_additional_address_in_invoice']) && $settings['show_additional_address_in_invoice'] == '1' ? 'checked' : '' }}>
-                            </label>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-12 mb-5">
-                            {{ Form::label('company_address', __('messages.setting.company_address') . ':', ['class' => 'form-label required fs-6  mb-3']) }}
+                            {{ Form::label('company_address', __('messages.setting.company_address') . ':', ['class' => 'form-label required text-dark fs-6  mb-3']) }}
                             {{ Form::textarea('company_address', $settings['company_address'], ['class' => 'form-control ', 'rows' => 5, 'cols' => 5, 'required', 'id' => 'companyAddress']) }}
                         </div>
 
@@ -324,13 +340,22 @@
                     </div>
                     <div class="form-group col-sm-6 mb-5">
                         {{ Form::label('currency_after_amount', __('messages.setting.currency_position') . ':', ['class' => 'form-label required mb-3']) }}
-                        <label class="form-check form-switch form-check-custom mt-3">
+                        <!-- <label class="form-check form-switch form-check-custom mt-3">
                             <input class="form-check-input currencyAfterAmount" type="checkbox" name="currency_after_amount"
                                 id="currencyAfterAmount"
                                 {{ $settings['currency_after_amount'] == \App\Models\Setting::CURRENCY_AFTER_AMOUNT ? 'checked' : '' }}>
                             <span class="form-check-label text-gray-600"
                                 for="currencyAfterAmount">{{ __('messages.setting.show_currency_behind') }}</span>&nbsp;&nbsp;
+                        </label> -->
+
+                        <label class="form-check form-switch form-check-custom mt-3">
+                            <input class="custom-switch-input currencyAfterAmount" type="checkbox"
+                                name="currency_after_amount"
+                                id="currencyAfterAmount" {{ $settings['currency_after_amount'] == \App\Models\Setting::CURRENCY_AFTER_AMOUNT ? 'checked' : '' }}>
+                            <span class="form-check-label text-gray-600"
+                                for="currencyAfterAmount">{{ __('messages.setting.show_currency_behind') }}</span>&nbsp;&nbsp;
                         </label>
+
                     </div>
                     <div class="form-group col-sm-6 mb-5">
                         {{ Form::label('Invoice No Prefix', __('messages.setting.invoice_no_prefix') . ':', ['class' => 'form-label fs-6 mb-3']) }}
@@ -377,7 +402,7 @@
                                 {{ $settings['show_product_description'] == 1 ? 'checked' : '' }} value="1">
                         </label> -->
                         <div class="custom-switch mt-3 width-fit-content">
-                            <input type="checkbox" id="customSwitch" class="custom-switch-input"
+                            <input type="checkbox" id="customSwitch" class="custom-switch-input" name="show_product_description"
                                 {{ $settings['show_product_description'] == 1 ? 'checked' : '' }} value="{{ $settings['show_product_description'] == 1 ? '1' : '0' }}">
                             <label class="custom-switch-label" for="customSwitch"></label>
                         </div>
@@ -388,14 +413,27 @@
                     </div>
                 </div>
             </div>
+            <div class="tab-pane fade" id="invoiceTemplate" role="tabpanel" aria-labelledby="invoiceTemplate-tab">
+            @include('settings.invoice')
+            </div>
+            <div class="tab-pane fade" id="terms" role="tabpanel" aria-labelledby="terms-tab">
+                <div class="row">
+                    <div class="form-group col-sm-12 mb-5">
+                        {{ Form::label('terms&conditions', __('messages.product.description').':', ['class' => 'form-label mb-3']) }}
+                        {{ Form::textarea('description',null,['class' => 'form-control ', 'placeholder' => __('messages.product.description'),'rows' => '5']) }}
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="tab-pane fade" id="invoiceTemplate" role="tabpanel" aria-labelledby="invoiceTemplate-tab">
+</div> -->
         </div>
     </div>
     <div class="card-footer">
-    <div class="float-end d-flex mt-5"  style="padding-left:20px">
-        {{ Form::submit(__('messages.common.save'), ['class' => 'btn btn-primary me-3']) }}
-        <a href="{{ route('settings.edit') }}"
-            class="btn  btn-secondary btn-active-light-primary">{{ __('messages.common.cancel') }}</a>
-    </div>
+        <div class="float-end d-flex mt-5" style="padding-left:20px">
+            {{ Form::submit(__('messages.common.save'), ['class' => 'btn btn-primary me-3']) }}
+            <a href="{{ route('settings.edit') }}"
+                class="btn  btn-secondary btn-active-light-primary">{{ __('messages.common.cancel') }}</a>
+        </div>
     </div>
 </div>
 </div>

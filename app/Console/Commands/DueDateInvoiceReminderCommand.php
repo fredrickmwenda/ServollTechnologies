@@ -42,7 +42,7 @@ class DueDateInvoiceReminderCommand extends Command
             foreach ($invoices as $invoice) {
                 $subtractDate = Carbon::parse($invoice->due_date)->subDays($dueInvoiceDays);
                 if ($currentDate == $subtractDate->format('Y-m-d')) {
-                    Mail::to($invoice->client->user->email)->send(new InvoicePaymentReminderMail($invoice));
+                    Mail::to($invoice->client->email)->send(new InvoicePaymentReminderMail($invoice));
                 }
             }
         }

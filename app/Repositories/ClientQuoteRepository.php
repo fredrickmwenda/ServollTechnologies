@@ -170,11 +170,12 @@ class ClientQuoteRepository extends BaseRepository
             $quote->save();
 
             DB::commit();
-            if (getSettingValue('mail_notification')) {
-                $input['quoteData'] = $quote;
-                $input['clientData'] = $quote->client->user;
-                Mail::to($input['clientData']['email'])->send(new QuoteCreateClientMail($input));
-            }
+            // to be set later
+            // if (getSettingValue('mail_notification')) {
+            //     $input['quoteData'] = $quote;
+            //     $input['clientData'] = $quote->client;
+            //     Mail::to($input['clientData']['email'])->send(new QuoteCreateClientMail($input));
+            // }
 
             return $quote;
         } catch (Exception $exception) {

@@ -55,6 +55,13 @@
                             Add Product
                         </a>
                     </li>
+
+                    <li class="menu-item">
+                        <a href="{{ route('category.index')}}" class="menu-link">
+                            Categories
+                        </a>
+                    </li>
+                 
  
                 </ul>
             </li>

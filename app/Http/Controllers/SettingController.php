@@ -32,7 +32,10 @@ class SettingController extends AppBaseController
         $defaultSettings = $this->settingRepository->editSettingsData();
         $sectionName = ($request->section === null) ? 'general' : $request->section;
 
-        return view("settings.$sectionName", compact('sectionName'), $defaultSettings);
+        $invoiceTemplate = InvoiceSetting::all()->toArray();
+        $defaultTemplate = $defaultTemplate = $this->settingRepository->getSettingByKey('default_invoice_template'); // Use the repository method here
+
+        return view("settings.$sectionName", compact('sectionName', 'invoiceTemplate', 'defaultTemplate'), $defaultSettings);
     }
 
     public function update(UpdateSettingRequest $request): RedirectResponse

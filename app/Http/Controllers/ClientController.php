@@ -127,7 +127,6 @@ class ClientController extends AppBaseController
         if ($result) {
             return $this->sendError(__('messages.flash.client_cant_deleted'));
         }
-        $client->user()->delete();
         $client->delete();
 
         return $this->sendSuccess(__('messages.flash.client_deleted_successfully'));

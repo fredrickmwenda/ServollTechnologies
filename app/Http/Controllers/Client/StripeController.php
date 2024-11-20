@@ -32,8 +32,8 @@ class StripeController extends AppBaseController
         $transactionNotes = $request->get('transactionNotes');
         $invoice = Invoice::with('client.user')->where('id', $request->get('invoiceId'))->firstOrFail();
         $invoiceId = $invoice->invoice_id;
-        $client = $invoice->client->user;
-        $user = $request->user() ?? $client;
+        // $client = $invoice->client->user;
+        $user = $request->user();
         $userEmail = $user->email;
 
         try {
