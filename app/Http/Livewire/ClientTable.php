@@ -17,6 +17,9 @@ class ClientTable extends LivewireTableComponent
 
     public $buttonComponent = 'clients.components.add-button';
 
+    protected $listeners = ['refreshDatatable' => '$refresh'];
+
+
     public function configure(): void
     {
         $this->setPrimaryKey('id');
@@ -53,7 +56,7 @@ class ClientTable extends LivewireTableComponent
                 })
                 ->sortable()
                 ->view('clients.components.full_name'),
-            Column::make('email', 'user.email')
+            Column::make('email', 'email')
                 ->searchable()
                 ->hideIf(1),
             Column::make(__('messages.common.invoice'), 'website')

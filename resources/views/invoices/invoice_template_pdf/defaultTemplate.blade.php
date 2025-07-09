@@ -63,8 +63,8 @@
             <tr class="align-bottom">
                 <td style="width: 70%">
                     <strong class="from-font-size">{{ __('messages.common.to') }}</strong><br>
-                    <b>{{ __('messages.common.name') . ':' }}&nbsp;</b>{{ $client->user->full_name }}<br>
-                    <b>{{ __('messages.common.email') . ':' }}&nbsp;</b>{{ $client->user->email }}
+                    <b>{{ __('messages.common.name') . ':' }}&nbsp;</b>{{ $client->full_name }}<br>
+                    <b>{{ __('messages.common.email') . ':' }}&nbsp;</b>{{ $client->email }}
                     @if (!empty($client->address))
                         <br><b>{{ __('messages.common.address') . ':' }}&nbsp;</b>{{ $client->address }}
                     @endif

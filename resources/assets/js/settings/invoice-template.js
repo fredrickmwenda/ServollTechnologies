@@ -26,6 +26,7 @@ function loadInvoiceTemplates() {
 
     if ($('#invoiceTemplateId').length) {
         let template = $('#invoiceTemplateId').val();
+          
         let color = $('#invoiceTemplateId').select2().find(":selected").data('color');
         prepareDefaultTemplate(template, color);
     }

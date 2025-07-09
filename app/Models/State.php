@@ -72,13 +72,9 @@ class State extends Model
         return $this->belongsTo(Country::class, 'country_id');
     }
 
-    public function cities()
+  
+    public function cities(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(City::class);
+        return $this->hasMany(City::class, 'state_id');
     }
-
-    // public function city(): belongsTo
-    // {
-    //     return $this->belongsTo(City::class, 'state_id');
-    // }
 }

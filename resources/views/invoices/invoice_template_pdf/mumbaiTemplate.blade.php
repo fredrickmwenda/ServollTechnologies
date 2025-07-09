@@ -50,9 +50,9 @@
                             <div><b>{{ __('messages.invoice.fax_no') . ':' }}&nbsp;</b>{{ $setting['fax_no'] }}</div>
                         @endif
                         <strong class="to-font-size">{{ __('messages.common.to') }}</strong><br>
-                        <b>{{ __('messages.common.name') . ':' }}&nbsp;</b>{{ $client->user->full_name }}
+                        <b>{{ __('messages.common.name') . ':' }}&nbsp;</b>{{ $client->full_name }}
                         <br>
-                        <b>{{ __('messages.common.email') . ':' }}&nbsp;</b>{{ $client->user->email }}
+                        <b>{{ __('messages.common.email') . ':' }}&nbsp;</b>{{ $client->email }}
                         @if (!empty($client->address))
                             <br><b>{{ __('messages.common.address') . ':' }}&nbsp;</b>{{ $client->address }}
                         @endif

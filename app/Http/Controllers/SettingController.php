@@ -49,6 +49,7 @@ class SettingController extends AppBaseController
     //Invoice Update
     public function invoiceUpdate(Request $request): RedirectResponse
     {
+        dd($request->all());
         $this->settingRepository->updateInvoiceSetting($request->all());
         Flash::success(__('messages.flash.invoice_template_updated_successfully'));
 
@@ -58,7 +59,7 @@ class SettingController extends AppBaseController
     public function editInvoiceTemplate($key): mixed
     {
         $invoiceTemplate = InvoiceSetting::where('key', $key)->get();
-
+dd($invoiceTemplate);
         return $this->sendResponse($invoiceTemplate, 'InvoiceTemplate retrieved successfully.');
     }
 

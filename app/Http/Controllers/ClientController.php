@@ -53,7 +53,7 @@ class ClientController extends AppBaseController
     public function store(CreateClientRequest $request): RedirectResponse
     {
         $input = $request->all();
-        info($input);
+   
         try {
             $this->clientRepository->store($input);
             Flash::success(__('messages.flash.client_created_successfully'));

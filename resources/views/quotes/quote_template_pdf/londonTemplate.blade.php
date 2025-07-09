@@ -42,8 +42,8 @@
                 <td class="vertical-align-top">
                     <strong class="to-font-size"
                         {{ $styleCss }}="color: {{ $invoice_template_color }}">{{ __('messages.common.to') }}</strong><br>
-                    <b>{{ __('messages.common.name') . ':' }}&nbsp;</b>{{ $client->user->full_name }}<br>
-                    <b>{{ __('messages.common.email') . ':' }}&nbsp;</b>{{ $client->user->email }}<br>
+                    <b>{{ __('messages.common.name') . ':' }}&nbsp;</b>{{ $client->full_name }}<br>
+                    <b>{{ __('messages.common.email') . ':' }}&nbsp;</b>{{ $client->email }}<br>
                     @if (!empty($client->address))
                         <b>{{ __('messages.common.address') . ':' }}&nbsp;</b>{{ $client->address }}<br>
                     @endif

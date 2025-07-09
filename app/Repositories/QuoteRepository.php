@@ -114,6 +114,7 @@ class QuoteRepository extends BaseRepository
             }
             $quoteItemInputArray = Arr::only($input, ['product_id', 'quantity', 'price']);
             $quoteExist = Quote::where('quote_id', $input['quote_id'])->exists();
+            $input['quote_id'] = (string) $input['quote_id'];
             $quoteItemInput = $this->prepareInputForQuoteItem($quoteItemInputArray);
             $total = [];
             foreach ($quoteItemInput as $key => $value) {
@@ -129,7 +130,13 @@ class QuoteRepository extends BaseRepository
             }
 
             /** @var Quote $quote */
-            $input['client_id'] = Client::where('id', $input['client_id'])->first()->id;
+            // $input['client_id'] = Client::where('id', $input['client_id'])->first()->id;
+            $client = Client::find($input['client_id']);
+            if (!$client) {
+                throw new UnprocessableEntityHttpException('Client not found.');
+            }
+
+            $input['client_id'] = $client->id;
             $input = Arr::only($input, [
                 'client_id',
                 'quote_id',
@@ -206,11 +213,7 @@ class QuoteRepository extends BaseRepository
             $quote->save();
 
             DB::commit();
-            // if (getSettingValue('mail_notification')) {
-            //     $input['quoteData'] = $quote;
-            //     $input['clientData'] = $quote->client->user;
-            //     Mail::to($input['clientData']['email'])->send(new QuoteCreateClientMail($input));
-            // }
+
 
             return $quote;
         } catch (Exception $exception) {

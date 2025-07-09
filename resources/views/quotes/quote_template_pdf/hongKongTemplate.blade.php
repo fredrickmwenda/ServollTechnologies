@@ -43,9 +43,9 @@
                 <strong>{{ __('messages.quote.due_date') . ':' }}&nbsp;</strong>{{ \Carbon\Carbon::parse($quote->due_date)->translatedFormat(currentDateFormat()) }}
                 <br><br>
                 <strong class="to-font-size">{{ __('messages.common.to') . ':' }}</strong><br>
-                <b>{{ __('messages.common.name') . ':' }}&nbsp;</b>{{ $client->user->full_name }}
+                <b>{{ __('messages.common.name') . ':' }}&nbsp;</b>{{ $client->full_name }}
                 <br>
-                <b>{{ __('messages.common.email') . ':' }}&nbsp;</b>{{ $client->user->email }}
+                <b>{{ __('messages.common.email') . ':' }}&nbsp;</b>{{ $client->email }}
                 @if (!empty($client->address))
                     <br><b>{{ __('messages.common.address') . ':' }}&nbsp;</b>{{ $client->address }}
                 @endif

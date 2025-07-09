@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="{{asset('trezo/css/simplebar.css')}}">
     <link rel="stylesheet" href="{{asset('trezo/css/apexcharts.css')}}">
     <link rel="stylesheet" href="{{asset('trezo/css/prism.css')}}">
-    <link rel="stylesheet" href="{{asset('trezo/css/rangeslider.css')}}">
+    <!-- <link rel="stylesheet" href="{{asset('trezo/css/rangeslider.css')}}"> -->
     <link rel="stylesheet" href="{{asset('trezo/css/sweetalert.min.css')}}">
     <link rel="stylesheet" href="{{asset('trezo/css/quill.snow.css')}}">
     <link rel="stylesheet" href="{{asset('trezo/css/google-icon.css')}}">
@@ -122,7 +122,7 @@
     <script src="{{asset('trezo/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('trezo/js/sidebar-menu.js')}}"></script>
     <script src="{{asset('trezo/js/dragdrop.js')}}"></script>
-    <script src="{{asset('trezo/js/rangeslider.min.js')}}"></script>
+    <!-- <script src="{{asset('trezo/js/rangeslider.min.js')}}"></script> -->
     <script src="{{asset('trezo/js/sweetalert.js')}}"></script>
     <script src="{{asset('trezo/js/quill.min.js')}}"></script>
     <script src="{{asset('trezo/js/data-table.js')}}"></script>
@@ -156,6 +156,41 @@
             iconClass: 'toast-error custom-toast-error',
           });
       });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.body.addEventListener('click', function (e) {
+                if (e.target.closest('.delete-btn')) {
+                    e.preventDefault();
+                    let button = e.target.closest('.delete-btn');
+                    let id = button.getAttribute('data-id');
+                    let url = button.getAttribute('data-url');
+
+                    if (confirm('Are you sure you want to delete this record?')) {
+                        fetch(url, {
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                                'Accept': 'application/json',
+                            },
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                window.livewire.emit('refreshDatatable');
+                            } else {
+                                return response.json().then(error => {
+                                    alert(error.message || 'Deletion failed');
+                                });
+                            }
+                        })
+                        .catch(error => {
+                            alert('An error occurred while deleting.');
+                            console.error(error);
+                        });
+                    }
+                }
+            });
+        });
     </script>
     @endif
 </body>

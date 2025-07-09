@@ -55,7 +55,6 @@ class Client extends Model  implements HasMedia
     public $fillable = [
         'first_name',
         'last_name',
-        //'user_id',
         'website',
         'company',
         'postal_code',
@@ -79,7 +78,6 @@ class Client extends Model  implements HasMedia
         'country_id' => 'integer',
         'state_id' => 'integer',
         'city_id' => 'integer',
-       // 'user_id' => 'integer',
     ];
 
     /**
@@ -92,7 +90,6 @@ class Client extends Model  implements HasMedia
         'last_name' => 'required',
         'company' => 'required',
         'email' => 'required|email:filter|unique:clients,email',
-        // 'password' => 'required|same:password_confirmation|min:6',
         'postal_code' => 'string',
         'address' => 'nullable||string',
         'website' => 'nullable|url',

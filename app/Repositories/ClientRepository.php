@@ -24,7 +24,7 @@ class ClientRepository extends BaseRepository
      * @var array
      */
     protected $fieldSearchable = [
-        // 'website',
+    
         'company',
         'website',
         'address',
@@ -55,11 +55,9 @@ class ClientRepository extends BaseRepository
 
     public function store($input): bool
     {
-        //dd($input);
+        //info($input);
         try {
             DB::beginTransaction();
-            // $input['client_password'] = $input['password'];
-            // $input['password'] = Hash::make($input['password']);
  
             if (isset($input['contact'])) {
                 $checkUniqueness = checkContactUniqueness($input['contact'], $input['region_code']);
@@ -68,11 +66,7 @@ class ClientRepository extends BaseRepository
                 }
             }
 
-            /** @var User $user */
-           // $user = User::create($input);
-            //$user->assignRole(Role::ROLE_CLIENT);
 
-            //$input['user_id'] = $user->id;
             $client = Client::create($input);
 
             if (isset($input['profile']) && ! empty($input['profile'])) {
@@ -91,10 +85,7 @@ class ClientRepository extends BaseRepository
             //     $client->clearMediaCollection(Client::ACCOUNT);
             //     $client->media()->delete();
             // }
-            //look on the email notification
-            // if (getSettingValue('mail_notification')) {
-            //     Mail::to($input['email'])->send(new CreateNewClientMail($input));
-            // }
+          
             DB::commit();
 
             return true;
