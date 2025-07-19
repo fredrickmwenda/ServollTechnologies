@@ -2,7 +2,11 @@
 <div class="sidebar-area" id="sidebar-area">
     <div class="logo position-relative">
         <a href="{{ route('admin.dashboard') }}" class="d-block text-decoration-none position-relative">
-            <img src="{{ getLogoUrl() }}" alt="logo-icon">
+            @if(!Auth::user()->dark_mode)
+            <img src="{{ asset('assets/smart/images/logo/logo.png') }}" alt="logo-icon">
+            @else
+            <img src="{{ asset('assets/smart/images/logo/logo-b.png') }}" alt="logo-icon">
+            @endif
            
         </a>
         <button class="sidebar-burger-menu bg-transparent p-0 border-0 opacity-0 z-n1 position-absolute top-50 end-0 translate-middle-y" id="sidebar-burger-menu">
