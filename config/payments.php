@@ -2,6 +2,8 @@
 
 return [
 
+ 
+
     'paypal' => [
         'mode' => env('PAYPAL_MODE', 'sandbox'),
         'client_id' => env('PAYPAL_CLIENT_ID'),
@@ -13,6 +15,13 @@ return [
         'locale' => env('PAYPAL_LOCALE', 'en_US'),
         // force gateway language  i.e. it_IT, es_ES, en_US ... (for express checkout only)
         'validate_ssl' => env('PAYPAL_VALIDATE_SSL', true), // Validate SSL when creating api client.
+    ],
+
+    'paystack' => [
+        'public_key' => env('PAYSTACK_PUBLIC_KEY'),
+        'secret_key' => env('PAYSTACK_SECRET_KEY'),
+        'callback_url' => env('PAYSTACK_CALLBACK_URL'),
+        'webhook_url' => env('PAYSTACK_WEBHOOK_URL'),
     ],
 
     'authorize' => [

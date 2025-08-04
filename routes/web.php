@@ -18,6 +18,7 @@ use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TaxController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PaystackWebhookController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\TagController;
@@ -173,6 +174,7 @@ Route::prefix('admin')->middleware(['auth', 'xss', 'role:admin'])->group(functio
     Route::prefix('invoices')->name('invoices.')->group(function () {
         Route::get('/{invoice}/pdf', [InvoiceController::class, 'convertToPdf'])->name('pdf');
         Route::get('/{productId}/product', [InvoiceController::class, 'getProduct'])->name('get-product');
+        Route::post('/{invoice}/create-paystack', [InvoiceController::class, 'createPaystackInvoice'])->name('create-paystack');
         Route::get('/{currencyId}/currency', [InvoiceController::class, 'getInvoiceCurrency'])->name('get-currency');
         Route::post(
             '/turn-off-recurring/{invoice}',
@@ -213,6 +215,9 @@ Route::prefix('admin')->middleware(['auth', 'xss', 'role:admin'])->group(functio
     Route::get('invoice-template/{key}',[SettingController::class, 'editInvoiceTemplate'])->name('invoice-template.edit');
     Route::post('payment-gateway/store', [PaymentGatewayController::class, 'store'])->name('payment-gateway.store');
     Route::get('payment-gateway', [PaymentGatewayController::class, 'show'])->name('payment-gateway.show');
+    
+    // Paystack webhook
+    Route::post('paystack/webhook', [PaystackWebhookController::class, 'handleWebhook'])->name('paystack.webhook');
     //invoice template
     Route::get('template-setting', [InvoiceTemplateController::class, 'invoiceTemplateView'])->name('invoiceTemplate');
     Route::post(

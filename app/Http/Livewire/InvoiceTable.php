@@ -94,6 +94,13 @@ class InvoiceTable extends LivewireTableComponent
                 ->sortable()
                 ->searchable()
                 ->view('invoices.components.client-name'),
+
+            // Column for Paystack Actions
+            Column::make(__('Paystack'), 'id')
+                ->format(function($value, $row, Column $column) {
+                    return view('invoices.components.paystack-actions')
+                        ->withValue(['invoice_id' => $row->id]);
+                }),
                 
             // Hidden column for the invoice ID
             Column::make('invoice_id', 'invoice_id')

@@ -12,6 +12,7 @@ use App\Models\Payment;
 use App\Models\Product;
 use App\Repositories\InvoiceRepository;
 use App\Repositories\PaymentRepository;
+use App\Services\PaystackService;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Exception;
@@ -267,5 +268,32 @@ class InvoiceController extends AppBaseController
         $pdf = Pdf::loadView('invoices.export_invoices_pdf', $data);
 
         return $pdf->download('Invoices.pdf');
+    }
+
+    /**
+     * Create a Paystack invoice for payment
+     */
+    public function createPaystackInvoice(Invoice $invoice, PaystackService $paystackService): JsonResponse
+    {
+        try {
+            // Check if invoice is already paid
+            if ($invoice->status === Invoice::PAID) {
+                return $this->sendError('Invoice is already paid.');
+            }
+
+            // Create Paystack payment
+            $result = $paystackService->createInvoicePayment($invoice);
+
+            if ($result['success']) {
+                return $this->sendResponse([
+                    'authorization_url' => $result['authorization_url'],
+                    'reference' => $result['reference']
+                ], 'Paystack payment initialized successfully');
+            }
+
+            return $this->sendError($result['message'] ?? 'Could not initialize Paystack payment');
+        } catch (Exception $e) {
+            return $this->sendError($e->getMessage());
+        }
     }
 }

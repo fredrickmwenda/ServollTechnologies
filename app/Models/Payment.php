@@ -125,6 +125,8 @@ class Payment extends Model implements HasMedia
 
     const ALL = 0;
 
+    const PAYSTACK = 6;
+
     const PAYMENT_MODE = [
         self::ALL => 'All',
         self::MANUAL => 'Manual',
@@ -132,6 +134,7 @@ class Payment extends Model implements HasMedia
         self::PAYPAL => 'Paypal',
         self::CASH => 'Cash',
         self::RAZORPAY => 'Razorpay',
+        self::PAYSTACK => 'Paystack',
     ];
 
     public static $rules = [
